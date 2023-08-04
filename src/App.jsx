@@ -1,0 +1,22 @@
+import { Col, Container, Row } from "react-bootstrap";
+import { Content, Navbar, SideBar } from "./containers";
+
+const App = () => {
+  return (
+    <div className="App">
+      <Container fluid>
+        <Row>
+          <Col xs={9} md={10}>
+            <Navbar />
+            <Content />
+          </Col>
+          <Col xs={3} md={2}>
+            <SideBar />
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
+
+export default App;

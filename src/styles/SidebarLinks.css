@@ -1,0 +1,21 @@
+.sidebar-links {
+  height: calc(100vh - 260px);
+  padding-right: 20px;
+}
+
+.sidebar-links ul {
+  max-height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.sidebar-links ul h3 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: bold;
+  color: #bf8b49;
+}

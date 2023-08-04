@@ -1,0 +1,28 @@
+.navbar {
+  background-color: #fff;
+  border-radius: 10px;
+}
+.navbar .navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar .nav-link:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar .nav-link.message {
+  position: relative;
+}
+
+.navbar .nav-link.message span.active {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: indianred;
+}

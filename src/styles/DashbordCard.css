@@ -1,0 +1,29 @@
+.dashboard-card {
+  /* background-color: indianred; */
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 15px;
+  border-radius: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.dashboard-card-icon {
+  font-size: 1.4em;
+}
+.dashboard-card-before {
+  position: absolute;
+  bottom: -10px;
+  left: -6px;
+  font-size: 3em;
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+}

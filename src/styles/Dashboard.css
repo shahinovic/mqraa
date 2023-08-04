@@ -1,0 +1,14 @@
+.dashboard {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-height: calc(100vh - 58px);
+  overflow-y: scroll;
+}
+
+.dashboard .row:nth-child(odd) .dashboard-card {
+  background-color: #bf8b49 !important;
+}
+.dashboard .row:nth-child(even) .dashboard-card {
+  background-color: #418a84 !important;
+}
