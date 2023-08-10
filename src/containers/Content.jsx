@@ -9,11 +9,13 @@ import {
   Messages,
   Parents,
   Reciter,
+  School,
   Sessions,
   Settings,
   Students,
   Teachers,
 } from "../pages";
+
 const Content = () => {
   return (
     <div className="content">
@@ -22,6 +24,7 @@ const Content = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/settings/school" element={<School />} />
         <Route path="/students" element={<Students />} />
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/parents" element={<Parents />} />

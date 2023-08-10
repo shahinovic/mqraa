@@ -4,3 +4,4 @@ export { default as SidebarUser } from "./SidebarUser";
 export { default as DashbordCard } from "./DashbordCard";
 export { default as DashboardHeader } from "./DashboardHeader";
 export { default as DashboarInfo } from "./DashboarInfo";
+export { default as SchoolLogo } from "./SchoolLogo";

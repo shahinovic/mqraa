@@ -3,8 +3,11 @@ import "../styles/SidebarLink.css";
 
 const SidebarLink = ({ to, icon, text }) => {
   const location = useLocation();
+
   const activeLink = (path) => {
-    return path === location.pathname ? "active" : "";
+    return location.pathname.split("/").find((ele) => "/" + ele === path)
+      ? "active"
+      : "";
   };
   return (
     <Link to={to} className={`sidebar-link ${activeLink(to)}`}>

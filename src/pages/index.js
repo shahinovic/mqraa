@@ -9,3 +9,4 @@ export { default as Employees } from "./Employees";
 export { default as Reciter } from "./Reciter";
 export { default as Memorizing } from "./Memorizing";
 export { default as Attendance } from "./Attendance";
+export { default as School } from "./School";
