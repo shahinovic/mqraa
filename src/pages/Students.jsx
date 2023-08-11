@@ -174,6 +174,18 @@ const Students = () => {
     "الجنسية",
     "نوع الهوية",
   ];
+
+  // actions
+
+  const firstColActions = ["إضافة", "تعديل", "تحديد الكل", "إلغاء"];
+  const secondColActions = ["طباعة", "إظهار", "Excel", "إظهار 10 اسطر"];
+
+  const show = {
+    state: "both",
+    first: firstColActions,
+    second: secondColActions,
+  };
+
   return (
     <div className="students py-4 px-2 rounded bg-light" dir="rtl">
       <StudentsFilter
@@ -187,7 +199,7 @@ const Students = () => {
         formPlaceholder="الحلقات"
       />
 
-      <StudentsActions />
+      <StudentsActions show={show} />
       <StudentsSearchByName
         name="بحث بإسم الطالب"
         placeholder="أدخل اسم الطالب"

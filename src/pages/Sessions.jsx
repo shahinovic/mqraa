@@ -69,6 +69,17 @@ const Sessions = () => {
     "عدد الطلاب",
   ];
 
+  // actions
+
+  const firstColActions = ["إضافة", "تعديل", "تحديد الكل", "إلغاء"];
+  const secondColActions = ["طباعة", "إظهار", "Excel", "إظهار 10 اسطر"];
+
+  const show = {
+    state: "both",
+    first: firstColActions,
+    second: secondColActions,
+  };
+
   return (
     <div className="sessions bg-light">
       <StudentsFilter
@@ -81,7 +92,7 @@ const Sessions = () => {
         formLabel="فلترة الحلقات"
         formPlaceholder="الحلقات"
       />
-      <StudentsActions />
+      <StudentsActions show={show} />
       <StudentsSearchByName
         name="بحث بإسم الحلقة"
         placeholder="أدخل اسم الحلقة"
