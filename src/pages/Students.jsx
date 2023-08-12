@@ -1,5 +1,4 @@
 import { Dropdown } from "react-bootstrap";
-import "../styles/Students.css";
 import { useState } from "react";
 
 import {
@@ -9,6 +8,7 @@ import {
   StudentsTable,
 } from "../components";
 
+import "../styles/Students.css";
 const Students = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");

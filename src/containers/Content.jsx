@@ -13,7 +13,9 @@ import {
   Sessions,
   Settings,
   Students,
+  StudentsAttendance,
   Teachers,
+  TeachersAttendance,
 } from "../pages";
 
 const Content = () => {
@@ -33,6 +35,8 @@ const Content = () => {
         <Route path="/reciter" element={<Reciter />} />
         <Route path="/memorizing" element={<Memorizing />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance/teachers" element={<TeachersAttendance />} />
+        <Route path="/attendance/students" element={<StudentsAttendance />} />
       </Routes>
     </div>
   );

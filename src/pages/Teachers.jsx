@@ -15,7 +15,7 @@ const Teachers = () => {
     {
       name: "اسم المعلم",
       attendance: (
-        <Link to="/attendance">
+        <Link to="/attendance/teachers/1">
           <button className="btn btn-primary">الحضور</button>
         </Link>
       ),

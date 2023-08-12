@@ -9,3 +9,5 @@ export { default as StudentsFilter } from "./StudentsFilter";
 export { default as StudentsActions } from "./StudentsActions";
 export { default as StudentsSearchByName } from "./StudentsSearchByName";
 export { default as StudentsTable } from "./StudentsTable";
+export { default as FilterInput } from "./FilterInput";
+export { default as LinkToProfile } from "./LinkToProfile";
