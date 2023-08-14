@@ -1,0 +1,30 @@
+.user-attendance .header {
+  padding: 50px;
+  padding-bottom: 300px;
+
+  overflow: hidden;
+}
+
+.user-attendance .header::before {
+  content: "";
+  position: absolute;
+  top: -106%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  transform: rotate(-16deg);
+  background-color: #418a846e;
+}
+
+.user-attendance .header .img-container {
+  position: absolute;
+  top: 35%;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+.user-attendance .header .info {
+  position: absolute;
+  top: 80%;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}

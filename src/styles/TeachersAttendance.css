@@ -1,0 +1,8 @@
+.teachers-attendance .link-to-profile {
+  background-color: rgb(65, 138, 132);
+  transition: 0.3s linear;
+}
+
+.teachers-attendance .link-to-profile:hover {
+  background-color: #198754;
+}

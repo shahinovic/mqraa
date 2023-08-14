@@ -1,0 +1,17 @@
+.user-attendance li {
+  margin-left: 10px !important;
+}
+.user-attendance .nav-link {
+  color: #000;
+  border-bottom: 1px solid #418a846b;
+  transition: 0.2s linear;
+}
+.user-attendance .nav-link:hover {
+  background-color: #418a84 !important;
+  color: #fff;
+}
+
+.user-attendance .nav-link.active {
+  background-color: #418a84 !important;
+  color: #fff;
+}

@@ -1,0 +1,31 @@
+.students .dropdown-menu {
+  width: 100%;
+}
+.students .dropdown-menu a {
+  padding-left: 100%;
+}
+
+.selected-session {
+  background-color: goldenrod;
+  position: relative;
+}
+span.remove {
+  position: absolute;
+  top: 43%;
+  left: 4px;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+span.remove:hover {
+  color: #dc3545;
+}
+.students-actions {
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+th {
+  color: #fff !important;
+}

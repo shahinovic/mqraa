@@ -1,0 +1,19 @@
+.location {
+  direction: rtl;
+  background-color: #bf8b49;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.location .back {
+  color: #fff !important;
+  cursor: pointer;
+}
+.location .location-name {
+  color: #ebebeb !important;
+  pointer-events: none;
+}
