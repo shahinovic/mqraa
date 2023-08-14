@@ -12,3 +12,4 @@ export { default as Attendance } from "./Attendance";
 export { default as School } from "./School";
 export { default as TeachersAttendance } from "./TeachersAttendance";
 export { default as StudentsAttendance } from "./StudentsAttendance";
+export { default as UserAttendance } from "./UserAttendance";

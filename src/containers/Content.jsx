@@ -14,6 +14,7 @@ import {
   Settings,
   Students,
   StudentsAttendance,
+  UserAttendance,
   Teachers,
   TeachersAttendance,
 } from "../pages";
@@ -36,7 +37,9 @@ const Content = () => {
         <Route path="/memorizing" element={<Memorizing />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/attendance/teachers" element={<TeachersAttendance />} />
+        <Route path="/attendance/teachers/:id" element={<UserAttendance />} />
         <Route path="/attendance/students" element={<StudentsAttendance />} />
+        <Route path="/attendance/students/:id" element={<UserAttendance />} />
       </Routes>
     </div>
   );

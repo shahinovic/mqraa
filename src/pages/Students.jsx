@@ -10,8 +10,8 @@ import {
 
 import "../styles/Students.css";
 const Students = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState("");
   const [sessionNames, setSessionNames] = useState([]);
   const studentsData = [
     {
@@ -121,46 +121,6 @@ const Students = () => {
       identityType: "",
     },
   ];
-  const allSessions = [
-    "حلقة الشيخ جمال طيبي",
-    "حلقة الشيخ رمضان بحري",
-    "حلقة الشيخ عبدالحميد",
-    "حلقة الشيخ حمزة مهرهرة",
-    "حلقة الشيخ علي زقاي",
-    "حلقة الشيخ أحمد لملوم",
-    "حلقة الشيخ زكريا العنابي",
-  ];
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    // setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const sessions = () => {
-    if (searchTerm === "") {
-      return allSessions;
-    } else {
-      return allSessions.filter((session) => session.includes(searchTerm));
-    }
-  };
-
-  const sessionsOptions = () => {
-    return sessions().map((session) => (
-      <Dropdown.Item
-        onClick={() => {
-          setSessionNames([...sessionNames, session]);
-          setSearchTerm("");
-        }}
-        key={session}
-      >
-        {session}
-      </Dropdown.Item>
-    ));
-  };
-
-  const handleSelectClick = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
 
   // const formControl = useRef(null);
   const headers = [
@@ -186,18 +146,31 @@ const Students = () => {
     second: secondColActions,
   };
 
+  const optionsArray = [
+    "حلقة الشيخ جمال طيبي",
+    "حلقة الشيخ رمضان بحري",
+    "حلقة الشيخ عبدالحميد",
+    "حلقة الشيخ حمزة مهرهرة",
+    "حلقة الشيخ علي زقاي",
+    "حلقة الشيخ أحمد لملوم",
+    "حلقة الشيخ زكريا العنابي",
+  ];
+
+  const filterInputs = [
+    {
+      cols: 12,
+      type: "text",
+      formLabel: "فلترة الطلاب بإسم الحلقة",
+      formPlaceholder: "الحلقات",
+      optionsArray: optionsArray,
+      names: sessionNames,
+      setNames: setSessionNames,
+    },
+  ];
+
   return (
     <div className="students py-4 px-2 rounded bg-light" dir="rtl">
-      <StudentsFilter
-        term={searchTerm}
-        isDropdownOpen={isDropdownOpen}
-        options={sessionsOptions}
-        names={sessionNames}
-        setIsDropdownOpen={setIsDropdownOpen}
-        setNames={setSessionNames}
-        formLabel="فلترة الطلاب بإسم الحلقة"
-        formPlaceholder="الحلقات"
-      />
+      <StudentsFilter filterInputs={filterInputs} />
 
       <StudentsActions show={show} />
       <StudentsSearchByName
