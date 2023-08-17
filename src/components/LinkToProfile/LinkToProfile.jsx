@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const LinkToProfile = ({ user }) => {
-  console.log("🚀 ~ file: LinkToProfile.jsx:2 ~ LinkToProfile ~ user:", user);
-
   const { name, avatar, category, id } = user;
 
   return (

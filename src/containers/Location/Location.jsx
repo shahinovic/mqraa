@@ -26,6 +26,13 @@ const Location = () => {
     ["/outcomes"]: "المصاريف",
     ["/financial-reports"]: "التقارير المالية",
     ["/school"]: "إعدادات المدرسة",
+    ["/teachers-attendance"]: "حضور المعلمين",
+    ["/students-attendance"]: "حضور الطلاب",
+    ["/employees-attendance"]: "حضور الموظفين",
+    ["/achievement"]: "تقارير الانجاز اليومي",
+    ["/perseverance"]: "تقرير المواظبة",
+    ["/student-detailed-report"]: "التقرير التفصيلي للطلاب",
+    ["/sessions-detailed-report"]: "التقرير التفصيلي للحلقات",
   };
   let pathname = location.pathname.slice(1).split("/");
 

@@ -2,10 +2,6 @@ import { Button, Col, Row } from "react-bootstrap";
 
 const StudentsActions = ({ show }) => {
   const { state, first, second } = show;
-  console.log(
-    "🚀 ~ file: StudentsActions.jsx:5 ~ StudentsActions ~ show:",
-    show
-  );
 
   const firstColor = "#418a84";
   const secondColor = "#bf8b49";

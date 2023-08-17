@@ -15,7 +15,7 @@ const FilterInput = ({ input, index }) => {
     names,
     setNames,
   } = input;
-  console.log("🚀 ~ file: FilterInput.jsx:10 ~ FilterInput ~ input:", input);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     // setIsDropdownOpen(!isDropdownOpen);

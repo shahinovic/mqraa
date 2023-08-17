@@ -14,3 +14,8 @@ export { default as TeachersAttendance } from "./TeachersAttendance/TeachersAtte
 export { default as StudentsAttendance } from "./StudentsAttendance/StudentsAttendance";
 export { default as UserAttendance } from "./UserAttendance/UserAttendance";
 export { default as EmployeesAttendance } from "./EmployeesAttendance/EmployeesAttendance";
+export { default as Reports } from "./Reports/Reports";
+export { default as ReportsAchievement } from "./ReportsAchievement/ReportsAchievement";
+export { default as ReportsPerseverance } from "./ReportsPerseverance/ReportsPerseverance";
+export { default as StudentDetailedReport } from "./StudentDetailedReport/StudentDetailedReport";
+export { default as SessionsDetailedReport } from "./SessionsDetailedReport/SessionsDetailedReport";

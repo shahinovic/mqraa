@@ -5,7 +5,8 @@ import {
   StudentsSearchByName,
   StudentsTable,
 } from "../../components";
-const Memorizing = () => {
+
+const ReportsAchievement = () => {
   // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const [searchTerm, setSearchTerm] = useState("");
   const [sessionNames, setSessionNames] = useState([]);
@@ -25,14 +26,21 @@ const Memorizing = () => {
     },
   ];
 
-  const headers = ["الطالب", "الإنجاز", "المواظبة"];
+  const headers = [
+    "الطالب",
+    "نوع الإنجاز",
+    "من",
+    "الي",
+    "الدرجة",
+    "عدد الصفحات",
+  ];
   // actions
-
+  const firstColActions = ["طباعة التقرير"];
   const secondColActions = ["المواظبة", "الإنجاز الجماعي"];
 
   const show = {
-    state: "second",
-    // first: firstColActions,
+    state: "both  ",
+    first: firstColActions,
     second: secondColActions,
   };
 
@@ -79,19 +87,7 @@ const Memorizing = () => {
 
   return (
     <div className="memorizing bg-light p-0 rounded-2" dir="rtl">
-      <StudentsFilter
-        filterInputs={filterInputs}
-        // inputsCount={2}
-        // term={searchTerm}
-        // isDropdownOpen={isDropdownOpen}
-        // options={sessionsOptions}
-        // names={sessionNames}
-        // setIsDropdownOpen={setIsDropdownOpen}
-        // setNames={setSessionNames}
-        // formLabel="فلترة الحلقات"
-        // formPlaceholder="الحلقات"
-        // secondInput={secondInput}
-      />
+      <StudentsFilter filterInputs={filterInputs} />
       <StudentsActions show={show} />
       <StudentsSearchByName name="بحث" placeholder="ابحث" />
       <StudentsTable studentsData={sessionsData} headers={headers} />
@@ -99,4 +95,6 @@ const Memorizing = () => {
   );
 };
 
-export default Memorizing;
+export default ReportsAchievement;
+
+// ReportsAchievement

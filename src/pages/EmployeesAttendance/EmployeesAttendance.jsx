@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StudentsFilter, UserSetAttendance } from "../../../components";
+import { StudentsFilter, UserSetAttendance } from "../../components";
 
 const EmployeesAttendance = () => {
   const [date, setDate] = useState(["17-04-2022"]);

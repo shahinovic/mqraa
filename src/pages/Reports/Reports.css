@@ -1,0 +1,8 @@
+.reports .dashboard-card {
+  background-color: #418a84;
+  transition: 0.3s linear;
+  margin-bottom: 20px;
+}
+.reports .dashboard-card:hover {
+  background-color: #198754;
+}

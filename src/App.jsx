@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 
 const App = () => {
   const location = useLocation();
-  console.log("🚀 ~ file: App.jsx:7 ~ App ~ location:", location);
 
   return (
     <div className="App">

@@ -7,7 +7,6 @@ const SchoolLogo = ({ edit, schoolLogo, setSchoolLogo }) => {
       const imageUrl = URL.createObjectURL(selectedFile);
       setSchoolLogo(imageUrl);
     }
-    console.log(schoolLogo);
   };
   const changeLogo = useRef(null);
   const changeLogoInput = useRef(null);

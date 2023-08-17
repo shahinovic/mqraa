@@ -17,6 +17,11 @@ import {
   Teachers,
   TeachersAttendance,
   EmployeesAttendance,
+  Reports,
+  ReportsAchievement,
+  ReportsPerseverance,
+  StudentDetailedReport,
+  SessionsDetailedReport,
 } from "../../pages";
 const MyRoutes = () => {
   return (
@@ -39,6 +44,18 @@ const MyRoutes = () => {
       <Route path="/attendance/students" element={<StudentsAttendance />} />
       <Route path="/attendance/students/:id" element={<UserAttendance />} />
       <Route path="/attendance/employees" element={<EmployeesAttendance />} />
+      <Route path="/reports" element={<Reports />} />
+      <Route path="/reports/achievement" element={<ReportsAchievement />} />
+      <Route path="/reports/perseverance" element={<ReportsPerseverance />} />
+
+      <Route
+        path="/reports/student-detailed-report"
+        element={<StudentDetailedReport />}
+      />
+      <Route
+        path="/reports/sessions-detailed-report"
+        element={<SessionsDetailedReport />}
+      />
     </Routes>
   );
 };
