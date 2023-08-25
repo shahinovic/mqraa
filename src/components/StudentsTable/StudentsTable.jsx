@@ -8,6 +8,8 @@ const StudentsTable = ({ studentsData, headers }) => {
     return studentsData.map((student) => {
       const keys = Object.keys(student);
       const tds = keys.map((ele, index) => {
+        if (typeof student[`${ele}`].$$typeof === "symbol")
+          return <td>{student[ele]}</td>;
         if (typeof student[`${ele}`] === "object" && ele !== "attendance") {
           return [...Object.values(student[`${ele}`])].join(", ");
         } else {

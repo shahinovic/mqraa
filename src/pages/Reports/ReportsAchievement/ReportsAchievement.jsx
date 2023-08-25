@@ -4,7 +4,7 @@ import {
   StudentsFilter,
   StudentsSearchByName,
   StudentsTable,
-} from "../../components";
+} from "../../../components";
 
 const ReportsAchievement = () => {
   // const [isDropdownOpen, setIsDropdownOpen] = useState(false);

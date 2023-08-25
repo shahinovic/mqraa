@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+
 import {
+  SessionsDetailedReportTable,
   StudentDetailedReportTable,
   StudentsActions,
   StudentsFilter,
   StudentsSearchByName,
-} from "../../components";
+} from "../../../components";
 
-const StudentDetailedReport = () => {
+const SessionsDetailedReport = () => {
   // filterInputs
   const [sessionNames, setSessionNames] = useState([]);
-  const [studentName, setStudentName] = useState([]);
+  // const [studentName, setStudentName] = useState([]);
   const [from, setFrom] = useState([]);
   const [to, setTo] = useState([]);
   const sessionsOptionsArray = [
@@ -144,15 +146,6 @@ const StudentDetailedReport = () => {
       optionsArray: sessionsOptionsArray,
       names: sessionNames,
       setNames: setSessionNames,
-    },
-    {
-      cols: 3,
-      type: "text",
-      formLabel: "الطالب",
-      formPlaceholder: "اختر الطالب",
-      optionsArray: studentsArray,
-      names: studentName,
-      setNames: setStudentName,
     },
     {
       cols: 3,
@@ -319,11 +312,11 @@ const StudentDetailedReport = () => {
 
   const headers = [
     "اليوم",
+    "الطالب",
     "نوع الإنجاز",
     "من",
     "إلي",
     "الدرجة",
-    "الملاحظة",
     "عدد الصفحات",
   ];
 
@@ -352,8 +345,10 @@ const StudentDetailedReport = () => {
     return datesInRange;
   };
 
-  const renderReports = (sessionsReportsArray, studentName, from, to) => {
+  const renderReports = (sessionsReportsArray, sessionNames, from, to) => {
     const days = getDatesInRange(from, to);
+
+    const sessionId = sessionsArray.find((s) => s.name === sessionNames).id;
 
     const daysToRender = days.map((day) => {
       const filteredSessionsReports = sessionsReportsArray.filter(
@@ -363,26 +358,17 @@ const StudentDetailedReport = () => {
       return filteredSessionsReports;
     });
 
-    const allResults = daysToRender.map((ele) =>
-      ele.filter((day) => {
-        return day.studentsAchievements.find((student) => {
-          return student.name === studentName;
-        });
-      })
-    );
-
     let res = [];
-    allResults.map((innerArray) => {
+    daysToRender.map((innerArray) => {
       res.push(...innerArray);
     });
 
-    // return flattenedArray;
     return res;
   };
 
   const data = renderReports(
     sessionsReportsArray,
-    "عاصم بحري",
+    "حلقة الشيخ جمال طيبي",
     "09-05-2022",
     "10-05-2022"
   );
@@ -398,17 +384,21 @@ const StudentDetailedReport = () => {
     second: secondColActions,
   };
   return (
-    <div className="student-detailed-report bg-light p-0 rounded-2" dir="rtl">
+    <div className="sessions-detailed-report bg-light p-0 rounded-2" dir="rtl">
       <StudentsFilter filterInputs={filterInputs} />
       <StudentsActions show={show} />
-
-      <StudentDetailedReportTable
+      <StudentsSearchByName
+        name="بحث بإسم الطالب"
+        placeholder="أدخل اسم الطالب"
+      />
+      {/* <StudentDetailedReportTable
         data={data}
         headers={headers}
-        studentName={studentName[0]}
-      />
+        // studentName={studentName[0]}
+      /> */}
+      <SessionsDetailedReportTable data={data} headers={headers} />
     </div>
   );
 };
 
-export default StudentDetailedReport;
+export default SessionsDetailedReport;

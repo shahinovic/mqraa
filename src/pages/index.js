@@ -14,8 +14,43 @@ export { default as TeachersAttendance } from "./TeachersAttendance/TeachersAtte
 export { default as StudentsAttendance } from "./StudentsAttendance/StudentsAttendance";
 export { default as UserAttendance } from "./UserAttendance/UserAttendance";
 export { default as EmployeesAttendance } from "./EmployeesAttendance/EmployeesAttendance";
+/* 
+start reports
+*/
 export { default as Reports } from "./Reports/Reports";
-export { default as ReportsAchievement } from "./ReportsAchievement/ReportsAchievement";
-export { default as ReportsPerseverance } from "./ReportsPerseverance/ReportsPerseverance";
-export { default as StudentDetailedReport } from "./StudentDetailedReport/StudentDetailedReport";
-export { default as SessionsDetailedReport } from "./SessionsDetailedReport/SessionsDetailedReport";
+export { default as ReportsAchievement } from "./Reports/ReportsAchievement/ReportsAchievement";
+export { default as ReportsPerseverance } from "./Reports/ReportsPerseverance/ReportsPerseverance";
+export { default as StudentDetailedReport } from "./Reports/StudentDetailedReport/StudentDetailedReport";
+export { default as SessionsDetailedReport } from "./Reports/SessionsDetailedReport/SessionsDetailedReport";
+/*
+end reports
+*/
+/*
+start statistics
+*/
+export { default as Statistics } from "./Statistics/Statistics";
+export { default as StatisticsAchievement } from "./Statistics/StatisticsAchievement/StatisticsAchievement";
+export { default as StatisticsPerseverance } from "./Statistics/StatisticsPerseverance/StatisticsPerseverance";
+export { default as StatisticsProgression } from "./Statistics/StatisticsProgression/StatisticsProgression";
+export { default as StatisticsSessions } from "./Statistics/StatisticsSessions/StatisticsSessions";
+
+/*
+end statistics
+*/
+
+/*
+start financial affairs
+*/
+
+export { default as FinancialAffairs } from "./FinancialAffairs/FinancialAffairs";
+export { default as StudentSubscriptions } from "./FinancialAffairs/StudentSubscriptions/StudentSubscriptions";
+export { default as LatePayment } from "./FinancialAffairs/LatePayment/LatePayment";
+export { default as FinancialIncomes } from "./FinancialAffairs/FinancialIncomes/FinancialIncomes";
+export { default as FinancialExpenses } from "./FinancialAffairs/FinancialExpenses/FinancialExpenses";
+export { default as FinancialSalaries } from "./FinancialAffairs/FinancialSalaries/FinancialSalaries";
+export { default as FinancialReports } from "./FinancialAffairs/FinancialReports/FinancialReports";
+export { default as FinancialSettings } from "./FinancialAffairs/FinancialSettings/FinancialSettings";
+
+/*
+end financial affairs
+*/

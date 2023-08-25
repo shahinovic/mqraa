@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NormalTable, StudentsFilter } from "../../components";
+import { NormalTable, StudentsFilter } from "../../../components";
 
 const ReportsPerseverance = () => {
   // filterInputs
@@ -19,7 +19,7 @@ const ReportsPerseverance = () => {
 
   const studentsArray = ["طالب 1", "طالب 2"];
   const fromDateArray = ["09-05-2022", "10-05-2022"];
-  const toDateArray = ["20-05-2022", "21-05-2022"];
+  const toDateArray = ["10-05-2022", "11-05-2022"];
 
   const filterInputs = [
     {

@@ -105,7 +105,7 @@ const SidebarLinks = () => {
         </li>
         <li>
           <SidebarLink
-            to="/Statistics"
+            to="/statistics"
             icon={<Statistics />}
             text="الإحصاءات"
           />

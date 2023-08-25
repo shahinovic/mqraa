@@ -1,0 +1,401 @@
+export const teachersTable = [
+  {
+    teacherID: 1,
+    teacherName: "عاصم بحري",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 2,
+    teacherName: "سيف الدين فيصل",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 3,
+    teacherName: "هارون العنابي",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 4,
+    teacherName: "جمال صحراوي",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 5,
+    teacherName: "علي زقاي",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 6,
+    teacherName: "جمال طيبي",
+    teacherAge: 20,
+  },
+  {
+    teacherID: 7,
+    teacherName: "حمزة مهرهرة",
+    teacherAge: 20,
+  },
+];
+
+export const studentsTable = [
+  {
+    studentID: 1,
+    studentName: "يوسف محمد",
+    studentAge: 11,
+  },
+  {
+    studentID: 2,
+    studentName: "خالد محمود",
+    studentAge: 15,
+  },
+  {
+    studentID: 3,
+    studentName: "عبدالله مصطفي",
+    studentAge: 14,
+  },
+  {
+    studentID: 4,
+    studentName: "عاصم بحري",
+    studentAge: 16,
+  },
+];
+
+export const sessionsTable = [
+  {
+    sessionID: 1,
+    sessionName: "حلقة الشيخ عاصم بحري",
+    teacherID: 1,
+    sessionType: "memorizing",
+    sessionDays: ["saturday", "monday"],
+    startTime: "10:00",
+    endTime: "12:00",
+  },
+  {
+    sessionID: 2,
+    sessionName: "حلقة الشيخ سيف الدين فيصل",
+    teacherID: 2,
+    sessionType: "memorizing",
+    sessionDays: ["sunday", "tuesday"],
+    startTime: "10:00",
+    endTime: "12:00",
+  },
+  {
+    sessionID: 3,
+    sessionName: "حلقة الشيخ هارون العنابي",
+    teacherID: 3,
+    sessionType: "memorizing",
+    sessionDays: ["wednesday", "thursday"],
+    startTime: "10:00",
+    endTime: "12:00",
+  },
+  {
+    sessionID: 4,
+    sessionName: "حلقة الشيخ جمال صحراوي",
+    teacherID: 4,
+    sessionType: "reviewing",
+    sessionDays: ["saturday", "monday"],
+    startTime: "13:00",
+    endTime: "15:00",
+  },
+  {
+    sessionID: 5,
+    sessionName: "حلقة الشيخ علي زقاي",
+    teacherID: 5,
+    sessionType: "reviewing",
+    sessionDays: ["sunday", "tuesday"],
+    startTime: "13:00",
+    endTime: "15:00",
+  },
+  {
+    sessionID: 6,
+    sessionName: "حلقة الشيخ جمال طيبي",
+    teacherID: 6,
+    sessionType: "reviewing",
+    sessionDays: ["wednesday", "thursday"],
+    startTime: "13:00",
+    endTime: "15:00",
+  },
+  {
+    sessionID: 7,
+    sessionName: "حلقة الشيخ حمزة مهرهرة",
+    teacherID: 7,
+    sessionType: "confirming",
+    sessionDays: ["saturday", "monday"],
+    startTime: "16:00",
+    endTime: "18:00",
+  },
+  {
+    sessionID: 8,
+    sessionName: "حلقة الشيخ عاصم بحري",
+    teacherID: 1,
+    sessionType: "confirming",
+    sessionDays: ["sunday", "tuesday"],
+    startTime: "16:00",
+    endTime: "18:00",
+  },
+  {
+    sessionID: 9,
+    sessionName: "حلقة الشيخ جمال طيبي",
+    teacherID: 6,
+    sessionType: "confirming",
+    sessionDays: ["wednesday", "thursday"],
+    startTime: "16:00",
+    endTime: "18:00",
+  },
+];
+
+export const studentsAttendanceTable = [
+  {
+    attendanceID: "12-05-2022",
+    sessionID: 4,
+    sessionType: "reviewing",
+    date: "09-05-2022",
+    teacherID: 7,
+    studentID: 8,
+    status: "attendance",
+  },
+  {
+    attendanceID: "11-05-2022",
+    sessionID: 4,
+    sessionType: "confirming",
+    date: "09-05-2022",
+    teacherID: 7,
+    studentID: 8,
+    status: "excuse",
+  },
+  {
+    attendanceID: "10-05-2022",
+    sessionID: 4,
+    sessionType: "reviewing",
+    date: "09-05-2022",
+    teacherID: 7,
+    studentID: 8,
+    status: "absence",
+  },
+  {
+    attendanceID: "09-05-2022",
+    sessionID: 4,
+    sessionType: "memorizing",
+    date: "09-05-2022",
+    teacherID: 7,
+    studentID: 8,
+    status: "late",
+  },
+];
+
+export const teachersAttendanceTable = [
+  {
+    attendanceID: "12-05-2022",
+    sessionID: 4,
+    sessionType: "reviewing",
+    date: "09-05-2022",
+    teacherID: 7,
+    status: "attendance",
+  },
+  {
+    attendanceID: "11-05-2022",
+    sessionID: 4,
+    sessionType: "confirming",
+    date: "09-05-2022",
+    teacherID: 7,
+    status: "attendance",
+  },
+  {
+    attendanceID: "10-05-2022",
+    sessionID: 4,
+    sessionType: "reviewing",
+    date: "09-05-2022",
+    teacherID: 7,
+    status: "attendance",
+  },
+  {
+    attendanceID: "09-05-2022",
+    sessionID: 4,
+    sessionType: "memorizing",
+    date: "09-05-2022",
+    teacherID: 7,
+    status: "attendance",
+  },
+];
+
+export const employeesAttendanceTable = [
+  {
+    attendanceID: "12-05-2022",
+    date: "09-05-2022",
+    employeeID: 1,
+    status: "attendance",
+  },
+  {
+    attendanceID: "12-05-2022",
+    date: "09-05-2022",
+    employeeID: 2,
+    status: "attendance",
+  },
+  {
+    attendanceID: "12-05-2022",
+    date: "09-05-2022",
+    employeeID: 3,
+    status: "attendance",
+  },
+  {
+    attendanceID: "12-05-2022",
+    date: "09-05-2022",
+    employeeID: 4,
+    status: "attendance",
+  },
+];
+
+export const studentsPerformanceTable = [
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 1,
+    achievementType: "memorizing",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "20",
+    },
+    degree: 10.0,
+    note: "حسن",
+    pages: 1.75,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 2,
+    achievementType: "memorizing",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "50",
+    },
+    degree: 12.0,
+    note: "حسن",
+    pages: 3,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 3,
+    achievementType: "memorizing",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "30",
+    },
+    degree: 10.0,
+    note: "حسن",
+    pages: 50,
+  },
+  {
+    sesstionID: 2,
+    teacherID: 2,
+    studentID: 1,
+    achievementType: "reviewing",
+    from: {
+      surah: "الكهف",
+      ayah: "1",
+    },
+    to: {
+      surah: "مريم",
+      ayah: "50",
+    },
+    degree: 20.0,
+    note: "عرض جيد للمقرر",
+    pages: 15,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 2,
+    achievementType: "reviewing",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "143",
+    },
+    degree: 24,
+    note: "حسن",
+    pages: 24,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 3,
+    achievementType: "reviewing",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "100",
+    },
+    degree: 19,
+    note: "حسن",
+    pages: 100,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 1,
+    achievementType: "confirming",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "15",
+    },
+    degree: 10.0,
+    note: "حسن",
+    pages: 1.5,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 2,
+    achievementType: "confirming",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "30",
+    },
+    degree: 12.0,
+    note: "حسن",
+    pages: 2,
+  },
+  {
+    sesstionID: 1,
+    teacherID: 2,
+    studentID: 3,
+    achievementType: "confirming",
+    from: {
+      surah: "البقرة",
+      ayah: "1",
+    },
+    to: {
+      surah: "البقرة",
+      ayah: "30",
+    },
+    degree: 10.0,
+    note: "حسن",
+    pages: 40,
+  },
+];
