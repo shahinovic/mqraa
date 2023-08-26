@@ -141,7 +141,7 @@ const SidebarLinks = () => {
         </li>
         <li>
           <SidebarLink
-            to="/financial-reports"
+            to="/financial-affairs/financial-affairs-reports"
             icon={<Report />}
             text="التقارير المالية"
           />

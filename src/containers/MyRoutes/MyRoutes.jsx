@@ -35,6 +35,9 @@ import {
   FinancialSalaries,
   FinancialReports,
   FinancialSettings,
+  SubscriptionsTypes,
+  PayrollTypes,
+  ManageExpensesTypes,
 } from "../../pages";
 const MyRoutes = () => {
   return (
@@ -111,6 +114,18 @@ const MyRoutes = () => {
       <Route
         path="/financial-affairs/financial-affairs-settings"
         element={<FinancialSettings />}
+      />
+      <Route
+        path="/financial-affairs/financial-affairs-settings/subscriptions-types"
+        element={<SubscriptionsTypes />}
+      />
+      <Route
+        path="/financial-affairs/financial-affairs-settings/payroll-types"
+        element={<PayrollTypes />}
+      />
+      <Route
+        path="/financial-affairs/financial-affairs-settings/manage-expenses-types"
+        element={<ManageExpensesTypes />}
       />
     </Routes>
   );

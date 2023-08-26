@@ -9,28 +9,28 @@ const FinancialSettings = () => {
   const cards = [
     {
       col: 6,
-      path: "/financial-affairs/student-subscriptions",
+      path: "/financial-affairs/financial-affairs-settings/subscriptions-types",
       title: "انواع الاشتراكات",
       icon: <List />,
       color: firstColor,
     },
     {
       col: 6,
-      path: "/financial-affairs/late-payment",
+      path: "/financial-affairs/financial-affairs-settings/payroll-types",
       title: "انواع الرواتب",
       icon: <List />,
       color: firstColor,
     },
     {
       col: 12,
-      path: "/financial-affairs/financial-affairs-incomes",
+      path: "/financial-affairs/financial-affairs-settings/manage-expenses-types",
       title: "إدارة أنواع المصاريف",
       icon: <List />,
       color: firstColor,
     },
   ];
   return (
-    <div className="financial-settings">
+    <div className="financial-settings py-3 px-2 bg-light" dir="rtl">
       <Row>
         {cards.map((ele, index) => {
           const { path, col, title, icon, color } = ele;

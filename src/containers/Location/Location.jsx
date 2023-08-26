@@ -45,6 +45,9 @@ const Location = () => {
     ["/financial-affairs-salaries"]: "رواتب المعلمين والموظفين",
     ["/financial-affairs-reports"]: "التقارير المالية",
     ["/financial-affairs-settings"]: "الإعدادات",
+    ["/subscriptions-types"]: "انواع الاشتراكات",
+    ["/payroll-types"]: "انواع الرواتب",
+    ["/manage-expenses-types"]: "إدارة أنواع المصاريف",
   };
   let pathname = location.pathname.slice(1).split("/");
 

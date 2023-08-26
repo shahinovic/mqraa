@@ -50,6 +50,9 @@ export { default as FinancialExpenses } from "./FinancialAffairs/FinancialExpens
 export { default as FinancialSalaries } from "./FinancialAffairs/FinancialSalaries/FinancialSalaries";
 export { default as FinancialReports } from "./FinancialAffairs/FinancialReports/FinancialReports";
 export { default as FinancialSettings } from "./FinancialAffairs/FinancialSettings/FinancialSettings";
+export { default as SubscriptionsTypes } from "./FinancialAffairs/FinancialSettings/SubscriptionsTypes/SubscriptionsTypes";
+export { default as PayrollTypes } from "./FinancialAffairs/FinancialSettings/PayrollTypes/PayrollTypes";
+export { default as ManageExpensesTypes } from "./FinancialAffairs/FinancialSettings/ManageExpensesTypes/ManageExpensesTypes";
 
 /*
 end financial affairs
