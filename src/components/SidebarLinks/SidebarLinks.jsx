@@ -53,9 +53,9 @@ const SidebarLinks = () => {
         <li>
           <SidebarLink to="/dashboard" icon={<AiHome />} text="لوحة القيادة" />
         </li>
-        <li>
+        {/* <li>
           <SidebarLink to="/messages" icon={<AiMail />} text="الرسائل" />
-        </li>
+        </li> */}
         <li>
           <SidebarLink to="/settings" icon={<AiSetting />} text="الإعدادات" />
         </li>
@@ -76,9 +76,9 @@ const SidebarLinks = () => {
             text="الحلقات"
           />
         </li>
-        <li>
+        {/* <li>
           <SidebarLink to="/employees" icon={<Users />} text="الموظفين" />
-        </li>
+        </li> */}
         <h3>الشؤون التعليمية</h3>
         <li>
           <SidebarLink
@@ -97,9 +97,9 @@ const SidebarLinks = () => {
         <li>
           <SidebarLink to="/attendance" icon={<AiCalendar />} text="الحضور" />
         </li>
-        <li>
+        {/* <li>
           <SidebarLink to="/plans" icon={<Book />} text="الخطط والمقررات" />
-        </li>
+        </li> */}
         <li>
           <SidebarLink to="/reports" icon={<Report />} text="التقارير" />
         </li>
@@ -118,12 +118,12 @@ const SidebarLinks = () => {
             text="الموقع الإلكتروني"
           />
         </li>
-        <li>
+        {/* <li>
           <SidebarLink to="/ads" icon={<Ads />} text="الاخبار والإعلانات" />
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <SidebarLink to="/library" icon={<Library />} text="المكتبة" />
-        </li>
+        </li> */}
         <h3>الشؤون المالية</h3>
 
         <li>

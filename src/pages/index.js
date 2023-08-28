@@ -57,3 +57,40 @@ export { default as ManageExpensesTypes } from "./FinancialAffairs/FinancialSett
 /*
 end financial affairs
 */
+
+/*
+start Exams 
+*/
+
+export { default as Exams } from "./Exams/Exams";
+export { default as ExamsList } from "./Exams/ExamsList/ExamsList";
+export { default as ExamsTypes } from "./Exams/ExamsTypes/ExamsTypes";
+export { default as ExamResults } from "./Exams/ExamResults/ExamResults";
+export { default as ExamsQuestions } from "./Exams/ExamsQuestions/ExamsQuestions";
+export { default as ExamsCommitteeManagement } from "./Exams/ExamsCommitteeManagement/ExamsCommitteeManagement";
+
+/*
+end Exams
+*/
+
+/* 
+start Website
+*/
+
+export { default as Website } from "./Website/Website";
+export { default as WebsiteInfo } from "./Website/WebsiteInfo/WebsiteInfo";
+export { default as WebsiteSliders } from "./Website/WebsiteSliders/WebsiteSliders";
+export { default as WebsiteNews } from "./Website/WebsiteNews/WebsiteNews";
+export { default as WebsitePages } from "./Website/WebsitePages/WebsitePages";
+export { default as WebsiteLogs } from "./Website/WebsiteLogs/WebsiteLogs";
+export { default as WebsiteChannel } from "./Website/WebsiteChannel/WebsiteChannel";
+export { default as WebsiteAlbums } from "./Website/WebsiteAlbums/WebsiteAlbums";
+export { default as WebsitePhotos } from "./Website/WebsitePhotos/WebsitePhotos";
+export { default as WebsiteNumbers } from "./Website/WebsiteNumbers/WebsiteNumbers";
+export { default as WebsiteQuestions } from "./Website/WebsiteQuestions/WebsiteQuestions";
+export { default as WebsiteTrust } from "./Website/WebsiteTrust/WebsiteTrust";
+export { default as WebsitePartners } from "./Website/WebsitePartners/WebsitePartners";
+export { default as WebsiteProgrammaticManagement } from "./Website/WebsiteProgrammaticManagement/WebsiteProgrammaticManagement";
+/* 
+end Website
+*/

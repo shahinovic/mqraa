@@ -38,6 +38,26 @@ import {
   SubscriptionsTypes,
   PayrollTypes,
   ManageExpensesTypes,
+  Exams,
+  ExamsList,
+  ExamsTypes,
+  ExamResults,
+  ExamsQuestions,
+  ExamsCommitteeManagement,
+  Website,
+  WebsiteInfo,
+  WebsiteSliders,
+  WebsiteNews,
+  WebsitePages,
+  WebsiteLogs,
+  WebsiteChannel,
+  WebsiteAlbums,
+  WebsitePhotos,
+  WebsiteNumbers,
+  WebsiteQuestions,
+  WebsiteTrust,
+  WebsitePartners,
+  WebsiteProgrammaticManagement,
 } from "../../pages";
 const MyRoutes = () => {
   return (
@@ -126,6 +146,34 @@ const MyRoutes = () => {
       <Route
         path="/financial-affairs/financial-affairs-settings/manage-expenses-types"
         element={<ManageExpensesTypes />}
+      />
+
+      <Route path="/exams" element={<Exams />} />
+      <Route path="/exams/exams-list" element={<ExamsList />} />
+      <Route path="/exams/exams-types" element={<ExamsTypes />} />
+      <Route path="/exams/exam-results" element={<ExamResults />} />
+      <Route path="/exams/exams-questions" element={<ExamsQuestions />} />
+      <Route
+        path="/exams/exams-committee-management"
+        element={<ExamsCommitteeManagement />}
+      />
+
+      <Route path="/website" element={<Website />} />
+      <Route path="/website/website-info" element={<WebsiteInfo />} />
+      <Route path="/website/website-sliders" element={<WebsiteSliders />} />
+      <Route path="/website/website-news" element={<WebsiteNews />} />
+      <Route path="/website/website-pages" element={<WebsitePages />} />
+      <Route path="/website/website-logs" element={<WebsiteLogs />} />
+      <Route path="/website/website-channel" element={<WebsiteChannel />} />
+      <Route path="/website/website-albums" element={<WebsiteAlbums />} />
+      <Route path="/website/website-photos" element={<WebsitePhotos />} />
+      <Route path="/website/website-numbers" element={<WebsiteNumbers />} />
+      <Route path="/website/website-questions" element={<WebsiteQuestions />} />
+      <Route path="/website/website-trust" element={<WebsiteTrust />} />
+      <Route path="/website/website-partners" element={<WebsitePartners />} />
+      <Route
+        path="/website/programmatic-management"
+        element={<WebsiteProgrammaticManagement />}
       />
     </Routes>
   );

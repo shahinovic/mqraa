@@ -16,3 +16,4 @@ export { default as UserSetAttendance } from "./UserSetAttendance/UserSetAttenda
 export { default as NormalTable } from "./NormalTable/NormalTable";
 export { default as StudentDetailedReportTable } from "./StudentDetailedReportTable/StudentDetailedReportTable";
 export { default as SessionsDetailedReportTable } from "./SessionsDetailedReportTable/SessionsDetailedReportTable";
+export { default as Calculations } from "./Calculations/Calculations";

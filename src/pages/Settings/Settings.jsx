@@ -95,7 +95,7 @@ const Settings = () => {
     },
   ];
   return (
-    <div className="settings" dir="rtl">
+    <div className="settings py-3 px-2 bg-light rounded-2" dir="rtl">
       <Row>
         {cards.map((ele, index) => {
           const { path, col, title, icon, color } = ele;
