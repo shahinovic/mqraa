@@ -11,7 +11,7 @@ const App = () => {
         <Row>
           <Col xs={9} md={10}>
             <Navbar />
-            <Location />
+            {/* <Location /> */}
             <Content />
           </Col>
           <Col xs={3} md={2}>

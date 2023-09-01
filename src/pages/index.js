@@ -9,7 +9,7 @@ export { default as Employees } from "./Employees/Employees";
 export { default as Reciter } from "./Reciter/Reciter";
 export { default as Memorizing } from "./Memorizing/Memorizing";
 export { default as Attendance } from "./Attendance/Attendance";
-export { default as School } from "./School/School";
+export { default as School } from "./Settings/School/School";
 export { default as TeachersAttendance } from "./TeachersAttendance/TeachersAttendance";
 export { default as StudentsAttendance } from "./StudentsAttendance/StudentsAttendance";
 export { default as UserAttendance } from "./UserAttendance/UserAttendance";

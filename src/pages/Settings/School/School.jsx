@@ -4,7 +4,7 @@ import { BiEdit as Edit } from "react-icons/bi";
 import { BsCheck2Circle as Check } from "react-icons/bs";
 import { Col, Form, Row } from "react-bootstrap";
 import { useState } from "react";
-import { SchoolLogo } from "../../components";
+import { SchoolLogo } from "../../../components";
 
 const School = () => {
   const [schoolObj, setSchoolObj] = useState({
@@ -65,7 +65,7 @@ const School = () => {
   };
 
   return (
-    <div className="school">
+    <div className="school py-3 px-2 bg-light rounded-2" dir="rtl">
       {edit && (
         <Row>
           <Button className="edit" onClick={() => handleEditToggle()}>

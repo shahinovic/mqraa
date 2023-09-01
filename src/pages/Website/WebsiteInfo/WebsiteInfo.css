@@ -1,0 +1,57 @@
+.website-info button:not(.btn-danger).edit {
+  background-color: #418a84;
+  border-color: transparent;
+}
+
+.website-info button:not(.btn-danger).edit:hover {
+  background-color: #059669;
+  border-color: transparent;
+}
+
+.website-info .card .card-head .img-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.website-info .card .card-head .img-container.wide {
+  width: 400px !important;
+}
+
+.website-info .card .card-head .img-container.edit {
+  border: 3px dashed #418a84 !important;
+}
+
+.website-info .card .card-head .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.website-info .card .card-head .img-container:hover .change-logo {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #ffffff75;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.website-info .card .card-head .img-container .change-logo .change {
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.change-logo input[type="file"] {
+  display: none;
+}

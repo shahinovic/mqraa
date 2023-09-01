@@ -2,6 +2,7 @@
   height: calc(100vh - 78px) !important;
   overflow-y: scroll;
   padding: 10px 0 !important;
+  position: relative;
 }
 .content::-webkit-scrollbar {
   width: 0 !important;

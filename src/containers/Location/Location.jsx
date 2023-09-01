@@ -68,100 +68,6 @@ const Location = () => {
     ["/website-partners"]: "إدارة شركاء النجاح",
     ["/website-programmatic-management"]: "إدارة برمجيا",
   };
-  // const cards = [
-  //   {
-  //     col: 12,
-  //     path: "/website/info",
-  //     title: "بيانات الموقع",
-  //     icon: <Info />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/sliders",
-  //     title: "إدارة الاسلايدر",
-  //     icon: <Slider />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/news",
-  //     title: "إدارة الأخبار",
-  //     icon: <News />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/pages",
-  //     title: "إدارة الصفحات",
-  //     icon: <PageSettings />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/logs",
-  //     title: "إدارة التسجيلات اونلاين",
-  //     icon: <Edit />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/channel",
-  //     title: "إدارة القناة",
-  //     icon: <Youtube />,
-  //     color: firstColor,
-  //   },
-
-  //   {
-  //     col: 6,
-  //     path: "/website/albums",
-  //     title: "إدارة الألبوم",
-  //     icon: <Album />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/photos",
-  //     title: "إدارة الصور",
-  //     icon: <Camera />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/numbers",
-  //     title: "إدارة الأرقام",
-  //     icon: <Beat />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/questions",
-  //     title: "إدارة الأسئلة الشائعة",
-  //     icon: <Error />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/trust",
-  //     title: "إدارة الشهادات والأقوال",
-  //     icon: <Trust />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/partners",
-  //     title: "إدارة شركاء النجاح",
-  //     icon: <Friends />,
-  //     color: firstColor,
-  //   },
-  //   {
-  //     col: 6,
-  //     path: "/website/programmatic-management",
-  //     title: "إدارة برمجيا",
-  //     icon: <Account />,
-  //     color: firstColor,
-  //   },
-  // ];
   let pathname = location.pathname.slice(1).split("/");
 
   const path = (location, pathes) => {
@@ -194,7 +100,9 @@ const Location = () => {
       );
     }
   };
-  return <div className="location">{path(location, pathes)}</div>;
+  return (
+    <div className="location sticky-top top-0">{path(location, pathes)}</div>
+  );
 };
 
 export default Location;
