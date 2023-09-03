@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import "./DashboarInfo.css";
 
 const DashboarInfo = () => {
@@ -8,10 +8,22 @@ const DashboarInfo = () => {
         <Col xs={4}>
           <div className="box">
             <div className="box-header">
-              <h4>الحفظ</h4>
+              <h4 className="text-center">الحفظ</h4>
               <div className="data-header">
-                <span className="text">اخر أسبوع</span>
-                <span className="num">صفحة</span>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>اخر اسبوع</th>
+                      <th>الصفحات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                  </tbody>
+                </Table>
               </div>
             </div>
           </div>
@@ -19,10 +31,69 @@ const DashboarInfo = () => {
         <Col xs={4}>
           <div className="box">
             <div className="box-header">
-              <h4>المراجعة</h4>
+              <h4 className="text-center">المراجعة</h4>
               <div className="data-header">
-                <span className="text">اخر أسبوع</span>
-                <span className="num">صفحة</span>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>اخر اسبوع</th>
+                      <th>الصفحات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                  </tbody>
+                </Table>
               </div>
             </div>
           </div>
@@ -30,10 +101,22 @@ const DashboarInfo = () => {
         <Col xs={4}>
           <div className="box">
             <div className="box-header">
-              <h4>التثبيت</h4>
+              <h4 className="text-center">التثبيت</h4>
               <div className="data-header">
-                <span className="text">اخر أسبوع</span>
-                <span className="num">صفحة</span>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>اخر اسبوع</th>
+                      <th>الصفحات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                  </tbody>
+                </Table>
               </div>
             </div>
           </div>

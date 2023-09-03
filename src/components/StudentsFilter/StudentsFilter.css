@@ -1,0 +1,20 @@
+.students-filter .form-label {
+  color: rgb(0, 60, 71);
+}
+
+.students-filter .form-control {
+  border: 2px solid #36c4c27d !important;
+  color: #003c47 !important;
+  transition: 0.3s ease;
+}
+
+.students-filter .form-control::placeholder {
+  color: #003c47 !important;
+}
+.students-filter .form-control:hover,
+.students-filter .form-control:focus {
+  background-color: #d2f4f354 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 2px solid #36c4c2 !important;
+}

@@ -8,7 +8,9 @@
   border-radius: 10px;
   font-size: 1.2em;
   font-weight: bold;
-  color: #fff;
+  color: #003c47;
+  border: 1px solid #36c4c1;
+  background-color: #36c4c21d;
   position: relative;
   cursor: pointer;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,

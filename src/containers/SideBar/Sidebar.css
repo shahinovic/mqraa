@@ -1,7 +1,18 @@
 .sidebar {
-  background-color: #fff;
+  background-color: #07505d;
   height: calc(100vh - 20px);
   border-radius: 10px;
-  border-top-left-radius: 50px !important;
   overflow: hidden;
+}
+
+.sidebar .nav-switch {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 1px solid red;
+}
+
+.sidebar .form-check-input:checked {
+  background-color: #1abdcb !important;
+  border-color: #00f4e9 !important;
 }

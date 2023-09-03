@@ -1,4 +1,5 @@
 import { Button, Col, Row } from "react-bootstrap";
+import "./StudentsActions.css";
 
 const StudentsActions = ({ show }) => {
   const { state, first, second } = show;
@@ -9,8 +10,9 @@ const StudentsActions = ({ show }) => {
     return first.map((action, index) => (
       <button
         key={action + index}
-        className="btn btn-primary ms-2"
-        style={{ backgroundColor: firstColor, border: "none" }}
+        className="btn  ms-2"
+        // style={{ backgroundColor: firstColor, border: "none" }}
+        // style={{ border: "none" }}
       >
         {action}
       </button>
@@ -21,8 +23,9 @@ const StudentsActions = ({ show }) => {
     return second.map((action, index) => (
       <button
         key={action + index}
-        className="btn btn-primary ms-2"
-        style={{ backgroundColor: secondColor, border: "none" }}
+        className="btn  ms-2"
+        // style={{ backgroundColor: secondColor, border: "none" }}
+        // style={{ border: "none" }}
       >
         {action}
       </button>

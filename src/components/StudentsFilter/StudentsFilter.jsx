@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Col, Dropdown, Form, Row } from "react-bootstrap";
+import "./StudentsFilter.css";
 
 import FilterInput from "../FilterInput/FilterInput";
 const StudentsFilter = ({ filterInputs }) => {
@@ -8,7 +9,7 @@ const StudentsFilter = ({ filterInputs }) => {
       <FilterInput key={index} input={input} index={index} />
     ));
   };
-  return <Row>{renderInputs(filterInputs)}</Row>;
+  return <Row className="students-filter">{renderInputs(filterInputs)}</Row>;
 };
 
 export default StudentsFilter;

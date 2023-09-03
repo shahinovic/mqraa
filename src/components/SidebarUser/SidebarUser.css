@@ -4,33 +4,42 @@
   place-items: center;
 }
 .sidebar-user .user-info {
-  width: 170px;
   height: 170px;
   padding: 10px;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   position: relative;
+
+  position: relative;
+}
+
+.sidebar.open .sidebar-user .user-info {
+  width: 170px;
 }
 
 .sidebar-user .user-info .user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.sidebar.open .sidebar-user .user-info .user-avatar {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-
-  overflow: hidden;
-  position: relative;
 }
+
 .sidebar-user .user-info .user-avatar .status {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  padding: 0 5px;
-  border-radius: 10px;
-  background-color: goldenrod;
+  top: 25px;
+  left: 25px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #36c4c1;
   color: #fff;
 }
 
@@ -45,7 +54,7 @@
 }
 .sidebar-user .user-info .user-name h3 {
   font-size: 15px;
-  color: #7b9e97;
+  color: #36c4c1;
   font-weight: 700;
   margin: 0;
 }
@@ -53,16 +62,21 @@
 .sidebar-user .user-info .user-name p {
   font-size: 16px;
   font-weight: bold;
-  color: #b5b3b3;
+  color: #36c4c2a0;
 }
+
+.sidebar.open .user-info .settings {
+  left: -10px;
+}
+
 .user-info .settings {
   position: absolute;
   top: 0;
-  left: -10px;
+  left: 5px;
   width: 20px;
   height: 20px;
   display: grid;
   place-items: center;
   font-size: 1.1em;
-  color: green;
+  color: #36c4c1;
 }

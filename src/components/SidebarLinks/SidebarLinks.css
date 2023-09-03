@@ -1,6 +1,6 @@
 .sidebar-links {
   height: calc(100vh - 260px);
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 .sidebar-links ul {
@@ -13,9 +13,20 @@
   overflow-y: scroll;
 }
 
+.sidebar-links ul li:last-child {
+  margin-bottom: 30px;
+}
+
 .sidebar-links ul h3 {
   margin: 0;
   font-size: 23px;
   font-weight: bold;
-  color: #bf8b49;
+  color: #36c4c1;
+}
+
+.sidebar-links ul h3 hr {
+  height: 2px;
+  background-color: #36c4c1 !important;
+  opacity: 1 !important;
+  border: none;
 }

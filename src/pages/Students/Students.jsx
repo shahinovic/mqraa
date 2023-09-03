@@ -171,7 +171,6 @@ const Students = () => {
   return (
     <div className="students py-4 px-2 rounded bg-light" dir="rtl">
       <StudentsFilter filterInputs={filterInputs} />
-
       <StudentsActions show={show} />
       <StudentsSearchByName
         name="بحث بإسم الطالب"

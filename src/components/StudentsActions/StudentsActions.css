@@ -1,0 +1,12 @@
+.students-actions button {
+  padding: 10px 25px;
+  background-color: #d2f4f354 !important;
+  border: 1px solid #36c4c1 !important;
+  transition: 0.3s ease;
+}
+.students-actions button:hover {
+  background-color: #36c4c1 !important;
+  border: 1px solid transparent !important;
+  color: #fff !important;
+  font-weight: bold;
+}

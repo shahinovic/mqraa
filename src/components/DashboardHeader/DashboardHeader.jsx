@@ -18,86 +18,120 @@ import { FaMoneyCheckAlt as MoneyCheck } from "react-icons/fa";
 import { TbWorld as World } from "react-icons/tb";
 
 const DashboardHeader = () => {
+  const column = 6;
+  const cards = [
+    {
+      col: column,
+      icon: <Users />,
+      title: "70 الطلاب",
+    },
+    {
+      col: column,
+      icon: <Users />,
+      title: "70 المعلمين",
+    },
+    {
+      col: column,
+      icon: <AiUnorderedList />,
+      title: "70 الحلقات",
+    },
+    {
+      col: column,
+      icon: <Users />,
+      title: "19 أولياء الأمور",
+    },
+    {
+      col: column,
+      icon: <AiCheckSquare />,
+      title: "الحفظ والمراجعة",
+    },
+    {
+      col: column,
+      icon: <AiCalendar />,
+      title: "حضور الطلاب",
+    },
+    {
+      col: column,
+      icon: <AiCheckCircle />,
+      title: "حضور المعلمين",
+    },
+    {
+      col: column,
+      icon: <AiCalendar />,
+      title: "حضور الموظفين",
+    },
+    {
+      col: column,
+      icon: <Paper />,
+      title: "التقارير",
+    },
+    {
+      col: column,
+      icon: <Statistics />,
+      title: "الإحصاءات",
+    },
+    {
+      col: column,
+      icon: <Book />,
+      title: "الخطط والمقررات",
+    },
+    {
+      col: column,
+      icon: <AiCheckCircle />,
+      title: "الإختبارات",
+    },
+    {
+      col: column,
+      icon: <Copy />,
+      title: "إعداد البطاقات",
+    },
+    {
+      col: column,
+      icon: <UserCheck />,
+      title: "السجل الذهبي",
+    },
+    {
+      col: column,
+      icon: <AiVideoCamera />,
+      title: "المقرأة الإلكترونية",
+    },
+    {
+      col: column,
+      icon: <Book />,
+      title: "المكتبة",
+    },
+    {
+      col: column,
+      icon: <MoneyCheck />,
+      title: "الشؤون المالية",
+    },
+    {
+      col: column,
+      icon: <Users />,
+      title: "الموظفين",
+    },
+    {
+      col: column,
+      icon: <World />,
+      title: "الموقع الإلكتروني",
+    },
+    {
+      col: column,
+      icon: <AiSetting />,
+      title: "الإعدادات",
+    },
+  ];
   return (
     <div className="dashboard-header mb-5">
       <Row className="mb-3">
-        <Col md={3}>
-          <DashbordCard icon={<Users />} title={"الطلاب 70"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Users />} title={"المعلمين 70"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<AiUnorderedList />} title={"الحلقات 70"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Users />} title={"أولياء الأمور 19"} />
-        </Col>
-      </Row>
-
-      <Row className="mb-3">
-        <Col md={3}>
-          <DashbordCard icon={<AiCheckSquare />} title={"الحفظ والمراجعة"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<AiCalendar />} title={"حضور الطلاب"} />
-        </Col>
-
-        <Col md={3}>
-          <DashbordCard icon={<AiCalendar />} title={"حضور المعلمين"} />
-        </Col>
-
-        <Col md={3}>
-          <DashbordCard icon={<AiCalendar />} title={"حضور الموظفين"} />
-        </Col>
-      </Row>
-
-      <Row className="mb-3">
-        <Col md={3}>
-          <DashbordCard icon={<Paper />} title={"التقارير"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Statistics />} title={"الإحصاءات"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Book />} title={"الخطط والمقررات"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<AiCheckCircle />} title={"الإختبارات"} />
-        </Col>
-      </Row>
-
-      <Row className="mb-3">
-        <Col md={3}>
-          <DashbordCard icon={<Copy />} title={"إعداد البطاقات"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<UserCheck />} title={"السجل الذهبي"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard
-            icon={<AiVideoCamera />}
-            title={"المقرأة الإلكترونية"}
-          />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Book />} title={"المكتبة"} />
-        </Col>
-      </Row>
-
-      <Row className="mb-3">
-        <Col md={3}>
-          <DashbordCard icon={<MoneyCheck />} title={"الشؤون المالية"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<Users />} title={"الموظفين"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<World />} title={"الموقع الإلكتروني"} />
-        </Col>
-        <Col md={3}>
-          <DashbordCard icon={<AiSetting />} title={"الإعدادات"} />
-        </Col>
+        {cards.map((card, index) => {
+          const { col, icon, title } = card;
+          return (
+            <Col className="mb-3" xs={12} md={col} key={index}>
+              <DashbordCard icon={icon} title={title} />
+            </Col>
+          );
+        })}
       </Row>
     </div>
   );

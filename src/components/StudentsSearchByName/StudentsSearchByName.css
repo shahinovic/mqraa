@@ -1,0 +1,20 @@
+.search-by-name .form-label {
+  color: rgb(0, 60, 71);
+}
+
+.search-by-name .form-control {
+  border: 2px solid #36c4c27d !important;
+  color: #003c47 !important;
+  transition: 0.3s ease;
+}
+
+.search-by-name .form-control::placeholder {
+  color: #003c47 !important;
+}
+.search-by-name .form-control:hover,
+.search-by-name .form-control:focus {
+  background-color: #d2f4f354 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 2px solid #36c4c2 !important;
+}

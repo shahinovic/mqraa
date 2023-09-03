@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "./SidebarLink.css";
 
-const SidebarLink = ({ to, icon, text }) => {
+const SidebarLink = ({ isOpen, to, icon, text }) => {
   const location = useLocation();
 
   const activeLink = (path) => {
@@ -10,9 +10,12 @@ const SidebarLink = ({ to, icon, text }) => {
       : "";
   };
   return (
-    <Link to={to} className={`sidebar-link ${activeLink(to)}`}>
+    <Link
+      to={to}
+      className={`sidebar-link ${activeLink(to)} ${isOpen ? "open" : ""}`}
+    >
       {icon}
-      <span className="text">{text}</span>
+      {isOpen && <span className="text">{text}</span>}
     </Link>
   );
 };

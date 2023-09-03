@@ -11,15 +11,21 @@ const StudentsTable = ({ studentsData, headers }) => {
         if (typeof student[`${ele}`].$$typeof === "symbol")
           return <td>{student[ele]}</td>;
         if (typeof student[`${ele}`] === "object" && ele !== "attendance") {
-          return [...Object.values(student[`${ele}`])].join(", ");
+          return (
+            <td>
+              {[...Object.values(student[`${ele}`])].map((ele) => (
+                <span className="badge">{ele}</span>
+              ))}
+            </td>
+          );
         } else {
           return <td>{student[ele]}</td>;
         }
       });
       return (
         <tr key={student.name + student.nickname}>
-          <td className="d-flex justify-content-center align-items-center">
-            <Form.Check type="checkbox" id={`default-checkbox`} />
+          <td className="text-center">
+            <Form.Check className="" type="checkbox" id={`default-checkbox`} />
           </td>
           {tds}
         </tr>
@@ -27,33 +33,23 @@ const StudentsTable = ({ studentsData, headers }) => {
     });
   };
   const renderHeaders = () => {
-    return headers.map((header) => (
-      <th style={{ backgroundColor: firstColor }}>{header}</th>
-    ));
+    return headers.map((header) => <th>{header}</th>);
   };
 
   return (
     <div className="students-table">
       <Table striped bordered hover size="md">
         <thead>
-          <tr style={{ backgroundColor: firstColor }}>
-            <th style={{ backgroundColor: firstColor }}></th>
+          <tr>
+            <th></th>
             {renderHeaders()}
           </tr>
         </thead>
         <tbody>{renderStudents()}</tbody>
       </Table>
-      <span
-        style={{ width: "fit-content" }}
-        className="actions border border-1 border-black rounded-2 d-block p-1 mx-auto"
-      >
+      <span className="actions border border-1 border-black rounded-2 d-block mx-auto">
         <button className="btn  next">السابق</button>
-        <button
-          style={{ backgroundColor: secondColor }}
-          className="btn current"
-        >
-          1
-        </button>
+        <button className="btn current">1</button>
         <button className="btn previous">التالي</button>
       </span>
     </div>

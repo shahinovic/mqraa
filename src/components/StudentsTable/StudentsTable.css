@@ -1,0 +1,56 @@
+.students-table {
+  overflow-x: scroll;
+}
+
+.students-table thead {
+  /* background-color: #36c4c178 !important; */
+  /* background-color: red !important; */
+  border: 1px solid #36c4c1;
+}
+.students-table thead th {
+  background-color: #d2f4f3;
+  color: #003c47 !important ;
+}
+
+.students-table .table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: #d2f4f3 !important;
+  --bs-table-color-type: #000 !important;
+}
+
+.students-table tbody > tr:hover > * {
+  --bs-table-bg-state: #d2f4f3 !important;
+  --bs-table-color-state: #000 !important;
+}
+
+.students-table .form-check-input:checked {
+  background-color: #69e4e0 !important;
+  border-color: #69e4e0 !important;
+}
+
+.students-table tbody td {
+  border-color: #69e4e0 !important;
+}
+
+span.badge {
+  background-color: hsla(178, 69%, 65%, 0.593) !important;
+  color: #000 !important;
+  padding: 5px 10px;
+  margin: 0 5px 5px;
+  font-size: 0.8em;
+}
+
+.students-table .actions {
+  width: fit-content;
+  overflow: hidden;
+  border-color: #11a8a3 !important;
+  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
+}
+.students-table .actions .current {
+  border: 1px solid #36c4c1 !important;
+}
+.students-table .actions .current,
+.students-table .actions .previous:hover,
+.students-table .actions .next:hover {
+  border-radius: 0 !important;
+  background-color: #adf0ee;
+}

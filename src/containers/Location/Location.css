@@ -1,19 +1,22 @@
 .location {
   direction: rtl;
-  background-color: #bf8b49;
-  margin: 10px 0;
+  background-color: #d2f4f3;
+
+  border: 1px solid #36c4c1;
+
+  margin: 10px 20px;
   padding: 10px;
   border-radius: 10px;
   font-size: 1.1em;
   font-weight: bold;
-  color: #fff;
+  color: #003c47;
 }
 
 .location .back {
-  color: #fff !important;
+  color: #003c47 !important;
   cursor: pointer;
 }
 .location .location-name {
-  color: #ebebeb !important;
+  color: #003c47 !important;
   pointer-events: none;
 }
