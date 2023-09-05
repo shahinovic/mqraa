@@ -36,12 +36,12 @@ const StudentsActions = ({ show }) => {
     <div className="students-actions py-3">
       <Row>
         {(state === "first" || state === "both") && (
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className="mb-3">
             {renderFirstColActions()}
           </Col>
         )}
         {(state === "second" || state === "both") && (
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className="mb-3">
             {renderSecondColActions()}
           </Col>
         )}

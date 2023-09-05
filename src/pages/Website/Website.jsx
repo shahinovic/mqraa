@@ -131,7 +131,7 @@ const Website = () => {
         {cards.map((ele, index) => {
           const { path, col, title, icon, color } = ele;
           return (
-            <Col className="mb-4" key={index} xs={col}>
+            <Col className="mb-4" key={index} md={col}>
               <Link to={path}>
                 <DashbordCard icon={icon} title={title} color={color} />
               </Link>

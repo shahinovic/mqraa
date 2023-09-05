@@ -1,8 +1,10 @@
 .attendance .card {
-  background-color: #418a84 !important;
+  background-color: #d2f4f3;
+  border: 1px solid #36c4c1;
+  color: #003c47 !important;
   transition: 0.3s linear;
 }
 
 .attendance .card:hover {
-  background-color: #198754 !important;
+  background-color: #c0f2f0;
 }

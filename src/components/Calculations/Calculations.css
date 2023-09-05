@@ -1,0 +1,22 @@
+.claculations {
+  border: 1px solid #36c4c1;
+}
+
+@media only screen and (max-width: 767px) {
+  .claculations > div {
+    flex-direction: column;
+  }
+  .claculations > div > div {
+    width: 100% !important;
+  }
+}
+
+.title {
+  background-color: #d2f4f3;
+  border: 1px solid #36c4c1;
+  color: #003c47 !important;
+}
+
+.content-container {
+  border: 1px solid #36c4c1;
+}

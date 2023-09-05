@@ -100,7 +100,7 @@ const Settings = () => {
         {cards.map((ele, index) => {
           const { path, col, title, icon, color } = ele;
           return (
-            <Col key={index} xs={col}>
+            <Col key={index} md={col}>
               <Link to={path}>
                 <DashbordCard icon={icon} title={title} color={color} />
               </Link>
