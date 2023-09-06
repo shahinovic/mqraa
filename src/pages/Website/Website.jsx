@@ -110,8 +110,8 @@ const Website = () => {
     },
     {
       col: 6,
-      path: "/website/website-programmatic-management",
-      title: "إدارة برمجيا",
+      path: "/website/website-programs",
+      title: "إدارة برامجنا",
       icon: <Account />,
       color: firstColor,
     },

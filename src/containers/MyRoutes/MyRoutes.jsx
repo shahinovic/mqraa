@@ -172,7 +172,7 @@ const MyRoutes = () => {
       <Route path="/website/website-trust" element={<WebsiteTrust />} />
       <Route path="/website/website-partners" element={<WebsitePartners />} />
       <Route
-        path="/website/programmatic-management"
+        path="/website/website-programs"
         element={<WebsiteProgrammaticManagement />}
       />
     </Routes>

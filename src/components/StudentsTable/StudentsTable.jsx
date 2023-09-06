@@ -2,8 +2,6 @@ import { Form, Table } from "react-bootstrap";
 import "./StudentsTable.css";
 
 const StudentsTable = ({ studentsData, headers }) => {
-  const firstColor = "rgb(65, 138, 132)";
-  const secondColor = "#bf8b49";
   const renderStudents = () => {
     return studentsData.map((student) => {
       const keys = Object.keys(student);
@@ -45,8 +43,16 @@ const StudentsTable = ({ studentsData, headers }) => {
             {renderHeaders()}
           </tr>
         </thead>
-        <tbody>{renderStudents()}</tbody>
+        <tbody>{studentsData.length !== 0 && renderStudents()}</tbody>
       </Table>
+      {studentsData.length === 0 && (
+        <div
+          className="w-100 py-2 my-3 text-center"
+          style={{ border: "1px solid #36c4c1", color: "#003c47" }}
+        >
+          لا توجد بيانات
+        </div>
+      )}
       <span className="actions border border-1 border-black rounded-2 d-block mx-auto">
         <button className="btn  next">السابق</button>
         <button className="btn current">1</button>

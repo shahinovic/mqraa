@@ -9,7 +9,6 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  border: 1px solid red;
 }
 
 .sidebar .form-check-input:checked {

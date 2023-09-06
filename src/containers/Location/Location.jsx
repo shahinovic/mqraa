@@ -56,7 +56,7 @@ const Location = () => {
     ["/exams-committee-management"]: "إدارة لجنة الاختبارات",
     ["/website-info"]: "بيانات الموقع",
     ["/website-sliders"]: "إدارة الاسلايدر",
-    ["/website-website-news"]: "إدارة الأخبار",
+    ["/website-news"]: "إدارة الأخبار",
     ["/website-pages"]: "إدارة الصفحات",
     ["/website-logs"]: "إدارة التسجيلات اونلاين",
     ["/website-channel"]: "إدارة القناة",
@@ -66,7 +66,7 @@ const Location = () => {
     ["/website-questions"]: "إدارة الأسئلة الشائعة",
     ["/website-trust"]: "إدارة الشهادات والأقوال",
     ["/website-partners"]: "إدارة شركاء النجاح",
-    ["/website-programmatic-management"]: "إدارة برمجيا",
+    ["/website-programs"]: "إدارة برمجيا",
   };
   let pathname = location.pathname.slice(1).split("/");
 

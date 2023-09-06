@@ -195,7 +195,7 @@ const SidebarLinks = ({ isOpen }) => {
         <li>
           <SidebarLink
             isOpen={isOpen}
-            to="/subscriptions"
+            to="/financial-affairs/student-subscriptions"
             icon={<Subscriptions />}
             text="إشتراكات الطلاب"
           />
@@ -203,7 +203,7 @@ const SidebarLinks = ({ isOpen }) => {
         <li>
           <SidebarLink
             isOpen={isOpen}
-            to="/incomes"
+            to="/financial-affairs/financial-affairs-incomes"
             icon={<Incomes />}
             text="المداخيل"
           />
@@ -211,7 +211,7 @@ const SidebarLinks = ({ isOpen }) => {
         <li>
           <SidebarLink
             isOpen={isOpen}
-            to="/outcomes"
+            to="/financial-affairs/financial-affairs-expenses"
             icon={<Outcomes />}
             text="المصاريف"
           />

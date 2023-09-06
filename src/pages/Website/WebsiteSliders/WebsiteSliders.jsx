@@ -1,5 +1,9 @@
 import React from "react";
-import { StudentsActions } from "../../../components";
+import {
+  StudentsActions,
+  StudentsSearchByName,
+  StudentsTable,
+} from "../../../components";
 
 const WebsiteSliders = () => {
   // actions
@@ -12,9 +16,15 @@ const WebsiteSliders = () => {
     first: firstColActions,
     second: secondColActions,
   };
+
+  // table
+  const headers = ["الصورة", "العنوان", "الرابط"];
+  const sliderData = [];
   return (
-    <div className="website-sliders">
+    <div className="website-sliders" dir="rtl">
       <StudentsActions show={show} />
+      <StudentsSearchByName name="بحث " />
+      <StudentsTable studentsData={sliderData} headers={headers} />
     </div>
   );
 };

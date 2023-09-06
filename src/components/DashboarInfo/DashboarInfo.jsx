@@ -5,7 +5,7 @@ const DashboarInfo = () => {
   return (
     <div className="dashboard-info">
       <Row>
-        <Col xs={4}>
+        <Col md={4}>
           <div className="box">
             <div className="box-header">
               <h4 className="text-center">الحفظ</h4>
@@ -28,7 +28,7 @@ const DashboarInfo = () => {
             </div>
           </div>
         </Col>
-        <Col xs={4}>
+        <Col md={4}>
           <div className="box">
             <div className="box-header">
               <h4 className="text-center">المراجعة</h4>
@@ -98,7 +98,7 @@ const DashboarInfo = () => {
             </div>
           </div>
         </Col>
-        <Col xs={4}>
+        <Col md={4}>
           <div className="box">
             <div className="box-header">
               <h4 className="text-center">التثبيت</h4>

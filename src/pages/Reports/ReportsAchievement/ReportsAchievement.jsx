@@ -17,12 +17,19 @@ const ReportsAchievement = () => {
     {
       name: "طالب 1",
       achievement: "",
-      attendance: "",
+      from: "",
+      to: "",
+      degree: "",
+      pages: "",
     },
     {
       name: "طالب 2",
       achievement: "",
-      attendance: "",
+
+      from: "",
+      to: "",
+      degree: "",
+      pages: "",
     },
   ];
 
