@@ -14,8 +14,9 @@ body {
 
 .App {
   font-family: var(--font-family);
-  height: calc(50vh - 20px) !important;
+  height: 100vh;
   padding: 10px 0;
+  position: relative;
 }
 a {
   text-decoration: none !important;
