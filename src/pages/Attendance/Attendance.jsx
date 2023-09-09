@@ -3,6 +3,7 @@ import "./Attendance.css";
 import { Card, Col, Row } from "react-bootstrap";
 import { FaChalkboardTeacher as Teacher } from "react-icons/fa";
 import { PiStudentBold as Student } from "react-icons/pi";
+
 // attendance
 
 {

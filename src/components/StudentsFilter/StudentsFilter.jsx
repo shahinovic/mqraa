@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Dropdown, Form, Row } from "react-bootstrap";
 import "./StudentsFilter.css";
 
 import FilterInput from "../FilterInput/FilterInput";
+
 const StudentsFilter = ({ filterInputs }) => {
   const renderInputs = (inputs) => {
     return inputs.map((input, index) => (

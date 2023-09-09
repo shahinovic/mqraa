@@ -9,13 +9,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-import { studentsPerformanceTable } from "../../../data";
-
 const ChartData = ({ data }) => {
   ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
-
-  const dataKeys = Object.keys(studentsPerformanceTable[0]);
-  console.log("🚀 ~ file: ChartData.jsx:18 ~ ChartData ~ dataKeys:", dataKeys);
 
   const options = {};
   return (

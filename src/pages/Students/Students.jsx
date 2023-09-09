@@ -1,128 +1,81 @@
-import { Dropdown } from "react-bootstrap";
-import { useState } from "react";
+// import { Dropdown } from "react-bootstrap";
+import { useEffect } from "react";
 
 import {
   StudentsActions,
   StudentsFilter,
   StudentsSearchByName,
   StudentsTable,
+  useLocalStorage,
 } from "../../components";
 
 import "./Students.css";
-const Students = () => {
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const [searchTerm, setSearchTerm] = useState("");
-  const [sessionNames, setSessionNames] = useState([]);
-  const studentsData = [
-    {
-      name: "أسامة",
-      nickname: "العنابي",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ جمال طيبي",
-        2: "حلقة الشيخ رمضان بحري",
-      },
-      username: "student98721",
-      date: "21-04-2011",
-      birthPlace: "عين الحجل",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "امجد",
-      nickname: "خليف",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ عبدالحميد",
-      },
-      username: "student1114317",
-      date: "21-04-2011",
-      birthPlace: "الجلفة",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "ايوب",
-      nickname: "حمدون",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ حمزة مهرهرة",
-      },
-      username: "student1014915",
-      date: "21-04-2011",
-      birthPlace: "البوريرة",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "ايوب",
-      nickname: "سعيدون",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ علي زقاي",
-      },
-      username: "student1018348",
-      date: "21-04-2011",
-      birthPlace: "عنابة",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "ابرهيم",
-      nickname: "بن بتقة",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ علي زقاي",
-        2: "حلقة الشيخ أحمد لملوم",
-      },
-      username: "student978950",
-      date: "21-04-2011",
-      birthPlace: "بوسعادة",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "إسحاق",
-      nickname: "رحموني",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ زكريا العنابي",
-      },
-      username: "student1028674",
-      date: "21-04-2011",
-      birthPlace: "تقرت",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "إسماعيل",
-      nickname: "فاسي",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة الشيخ حمزة مهرهرة",
-      },
-      username: "student1027281",
-      date: "21-04-2011",
-      birthPlace: "الحمامات",
-      nationality: "",
-      identityType: "",
-    },
-    {
-      name: "تجربة",
-      nickname: "تجربة",
-      gender: "ذكر",
-      sessions: {
-        1: "حلقة تجريبية",
-      },
-      username: "student6192976",
-      date: "21-04-2011",
-      birthPlace: "",
-      nationality: "",
-      identityType: "",
-    },
-  ];
+// import { db } from "../../config/firebase";
+// import {
+//   getDocs,
+//   collection,
+//   addDoc,
+//   deleteDoc,
+//   doc,
+// } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import useDebouncedSearch from "../../components/useDebouncedSearch/useDebouncedSearch";
+// import { getStudentsReducer } from "../../services/reducers/studentsSlice";
 
-  // const formControl = useRef(null);
+const Students = () => {
+  const [studentsData, setStudentsData] = useLocalStorage("studentsData", []);
+  const [optionsArray, setOptionsArray] = useLocalStorage("optionsArray", []);
+  const [sessionNames, setSessionNames] = useLocalStorage("sessionNames", []);
+  const [searchTerm, setSearchTerm] = useLocalStorage("searchTerm", "");
+
+  useEffect(() => {
+    console.log(
+      "🚀 ~ file: Students.jsx:27 ~ Students ~ sessionNames:",
+      sessionNames
+    );
+  }, [sessionNames]);
+
+  const rearrangeStudentProperties = (obj) => {
+    const {
+      name,
+      nickname,
+      gender,
+      sessions,
+      username,
+      date,
+      birthPlace,
+      nationality,
+      identityType,
+      // id,
+    } = obj;
+    const orderedObj = {
+      name,
+      nickname,
+      gender,
+      sessions,
+      username,
+      date,
+      birthPlace,
+      nationality,
+      identityType,
+      // id,
+      // Add more properties here as needed
+    };
+    return orderedObj;
+  };
+  const students = useSelector((state) => state.students.value);
+  const options = useSelector((state) => state.sessions.value);
+
+  const optionsNames = options.map((option) => option.sessionName);
+
+  const orderedData = students.map((student) =>
+    rearrangeStudentProperties(student)
+  );
+  useEffect(() => {
+    setStudentsData(orderedData);
+    setOptionsArray(optionsNames);
+  }, []);
+
   const headers = [
     "الاسم",
     "الكنية",
@@ -146,15 +99,15 @@ const Students = () => {
     second: secondColActions,
   };
 
-  const optionsArray = [
-    "حلقة الشيخ جمال طيبي",
-    "حلقة الشيخ رمضان بحري",
-    "حلقة الشيخ عبدالحميد",
-    "حلقة الشيخ حمزة مهرهرة",
-    "حلقة الشيخ علي زقاي",
-    "حلقة الشيخ أحمد لملوم",
-    "حلقة الشيخ زكريا العنابي",
-  ];
+  // const optionsArray = [
+  //   "حلقة الشيخ جمال طيبي",
+  //   "حلقة الشيخ رمضان بحري",
+  //   "حلقة الشيخ عبدالحميد",
+  //   "حلقة الشيخ حمزة مهرهرة",
+  //   "حلقة الشيخ علي زقاي",
+  //   "حلقة الشيخ أحمد لملوم",
+  //   "حلقة الشيخ زكريا العنابي",
+  // ];
 
   const filterInputs = [
     {
@@ -168,15 +121,58 @@ const Students = () => {
     },
   ];
 
+  const objectIncludes = (obj, valuesToFind) => {
+    for (const value of valuesToFind) {
+      let found = false;
+      for (const prop in obj) {
+        if (obj.hasOwnProperty(prop) && obj[prop] === value) {
+          found = true;
+          break;
+        }
+        if (
+          typeof obj[prop] === "object" &&
+          objectContainsAllValues(obj[prop], valuesToFind)
+        ) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        return false; // If any value is not found, return false
+      }
+    }
+    return true; // All values are found
+  };
+
+  const filteredData = () => {
+    if (sessionNames.length > 0) {
+      return studentsData?.filter((student) =>
+        objectIncludes(student.sessions, sessionNames)
+      );
+    }
+
+    if (searchTerm.length > 0) {
+      return studentsData?.filter(
+        (student) =>
+          student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          student.nickname.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return studentsData;
+  };
+
   return (
     <div className="students py-4 px-2 rounded bg-light" dir="rtl">
       <StudentsFilter filterInputs={filterInputs} />
       <StudentsActions show={show} />
       <StudentsSearchByName
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
         name="بحث بإسم الطالب"
         placeholder="أدخل اسم الطالب"
       />
-      <StudentsTable studentsData={studentsData} headers={headers} />
+      <StudentsTable studentsData={filteredData()} headers={headers} />
     </div>
   );
 };

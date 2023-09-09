@@ -18,3 +18,4 @@ export { default as StudentDetailedReportTable } from "./StudentDetailedReportTa
 export { default as SessionsDetailedReportTable } from "./SessionsDetailedReportTable/SessionsDetailedReportTable";
 export { default as Calculations } from "./Calculations/Calculations";
 export { default as ColorPicker } from "./ColorPicker/ColorPicker";
+export { default as useLocalStorage } from "./useLocalStorage/useLocalStorage";
