@@ -27,13 +27,11 @@ const Students = () => {
   const [optionsArray, setOptionsArray] = useLocalStorage("optionsArray", []);
   const [sessionNames, setSessionNames] = useLocalStorage("sessionNames", []);
   const [searchTerm, setSearchTerm] = useLocalStorage("searchTerm", "");
-
-  useEffect(() => {
-    console.log(
-      "🚀 ~ file: Students.jsx:27 ~ Students ~ sessionNames:",
-      sessionNames
-    );
-  }, [sessionNames]);
+  const [selectedStudent, setSelectedStudent] = useLocalStorage(
+    "selectedStudent",
+    []
+  );
+  const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
 
   const rearrangeStudentProperties = (obj) => {
     const {
@@ -46,7 +44,7 @@ const Students = () => {
       birthPlace,
       nationality,
       identityType,
-      // id,
+      id,
     } = obj;
     const orderedObj = {
       name,
@@ -58,7 +56,7 @@ const Students = () => {
       birthPlace,
       nationality,
       identityType,
-      // id,
+      id,
       // Add more properties here as needed
     };
     return orderedObj;
@@ -172,7 +170,13 @@ const Students = () => {
         name="بحث بإسم الطالب"
         placeholder="أدخل اسم الطالب"
       />
-      <StudentsTable studentsData={filteredData()} headers={headers} />
+      <StudentsTable
+        selectedStudent={selectedStudent}
+        setSelectedStudent={setSelectedStudent}
+        studentsData={filteredData()}
+        headers={headers}
+        selectAll={selectAll}
+      />
     </div>
   );
 };

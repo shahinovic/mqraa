@@ -15,7 +15,7 @@ const SchoolLogo = ({ edit, schoolLogo, setSchoolLogo }) => {
   };
   return (
     <>
-      <img src={schoolLogo} alt="shool logo" />
+      <img src={schoolLogo} alt="" />
       {!edit && (
         <div ref={changeLogo} onClick={handleLogoClick} className="change-logo">
           <span className="change">تغيير</span>

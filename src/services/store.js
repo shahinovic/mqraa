@@ -6,6 +6,8 @@ import studentsPerformanceReducer from "./reducers/studentsPerformanceSlice";
 import studentsReducer from "./reducers/studentsSlice";
 import teachersAttendanceReducer from "./reducers/teachersAttendanceSlice";
 import teachersReducer from "./reducers/teachersSlice";
+import parentsReducer from "./reducers/parentsSlice";
+import showFormReducer from "./reducers/showFormSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +18,7 @@ export const store = configureStore({
     students: studentsReducer,
     teachersAttendance: teachersAttendanceReducer,
     teachers: teachersReducer,
+    parents: parentsReducer,
+    showForm: showFormReducer,
   },
 });

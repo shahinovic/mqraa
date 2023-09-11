@@ -1,0 +1,64 @@
+.students-form {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.students-form h2 {
+  background-color: #418a84;
+  padding: 10px 0;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.students-form .col-md-6 {
+  margin-bottom: 20px !important;
+}
+
+.img-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.img-container.edit {
+  border: 3px dashed #418a84 !important;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img-container .change-logo {
+  display: none;
+}
+.img-container:hover .change-logo {
+  position: absolute;
+  visibility: visible;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #ffffff75;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.img-container .change-logo .change {
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.change-logo input[type="file"] {
+  display: none;
+}

@@ -1,18 +1,20 @@
 import { Button, Col, Row } from "react-bootstrap";
 import "./StudentsActions.css";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setFormStatus } from "../../services/reducers/showFormSlice";
 
 const StudentsActions = ({ show }) => {
   const { state, first, second } = show;
 
-  const firstColor = "#418a84";
-  const secondColor = "#bf8b49";
+  const dispatch = useDispatch();
+
   const renderFirstColActions = () => {
     return first.map((action, index) => (
       <button
+        onClick={() => dispatch(setFormStatus(true))}
         key={action + index}
         className="btn  ms-2"
-        // style={{ backgroundColor: firstColor, border: "none" }}
-        // style={{ border: "none" }}
       >
         {action}
       </button>
@@ -21,12 +23,7 @@ const StudentsActions = ({ show }) => {
 
   const renderSecondColActions = () => {
     return second.map((action, index) => (
-      <button
-        key={action + index}
-        className="btn  ms-2"
-        // style={{ backgroundColor: secondColor, border: "none" }}
-        // style={{ border: "none" }}
-      >
+      <button key={action + index} className="btn  ms-2">
         {action}
       </button>
     ));

@@ -1,29 +1,60 @@
 import { Form, Table } from "react-bootstrap";
 import "./StudentsTable.css";
 
-const StudentsTable = ({ studentsData, headers }) => {
+const StudentsTable = ({
+  selectedStudent,
+  setSelectedStudent,
+  studentsData,
+  headers,
+  selectAll,
+}) => {
   const renderStudents = () => {
+    // const [studentChecked, setStudentChecked] = useState(true);
+
+    console.log(
+      "🚀 ~ file: StudentsTable.jsx:11 ~ studentsData:",
+      studentsData
+    );
     return studentsData?.map((student) => {
+      console.log(
+        "🚀 ~ file: StudentsTable.jsx:18 ~ returnstudentsData?.map ~ student:",
+        selectedStudent
+      );
+
       const keys = Object.keys(student);
       const tds = keys.map((ele, index) => {
+        if (index >= headers.length) return;
         if (typeof student[`${ele}`].$$typeof === "symbol")
-          return <td>{student[ele]}</td>;
+          return <td key={student.id + student.username}>{student[ele]}</td>;
         if (typeof student[`${ele}`] === "object" && ele !== "attendance") {
           return (
-            <td>
+            <td key={student.id + student.username}>
               {[...Object.values(student[`${ele}`])].map((ele) => (
                 <span className="badge">{ele}</span>
               ))}
             </td>
           );
         } else {
-          return <td>{student[ele]}</td>;
+          return <td key={student.id + student.username}>{student[ele]}</td>;
         }
       });
       return (
         <tr key={student.name + student.nickname}>
           <td className="text-center">
-            <Form.Check className="" type="checkbox" id={`default-checkbox`} />
+            <Form.Check
+              checked={
+                (true && student.id === selectedStudent[0]) || selectAll[0]
+              }
+              className=""
+              onClick={() => {
+                const toggle = student.id === selectedStudent[0];
+                toggle
+                  ? setSelectedStudent([])
+                  : setSelectedStudent([student.id]);
+              }}
+              type="checkbox"
+              id={`default-checkbox`}
+            />
           </td>
           {tds}
         </tr>

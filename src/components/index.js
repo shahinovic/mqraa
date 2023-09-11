@@ -19,3 +19,4 @@ export { default as SessionsDetailedReportTable } from "./SessionsDetailedReport
 export { default as Calculations } from "./Calculations/Calculations";
 export { default as ColorPicker } from "./ColorPicker/ColorPicker";
 export { default as useLocalStorage } from "./useLocalStorage/useLocalStorage";
+export { default as FormsRouter } from "./FormsRouter/FormsRouter";

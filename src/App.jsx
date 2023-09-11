@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { Content, Navbar, SideBar } from "./containers";
+import { Content, FormsContainer, Navbar, SideBar } from "./containers";
 import { useEffect } from "react";
 import { LogIn } from "./pages";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,6 +10,7 @@ import { setStudentsReducer } from "./services/reducers/studentsSlice";
 import { setTeachersAttendanceReducer } from "./services/reducers/teachersAttendanceSlice";
 import { setSessionsReducer } from "./services/reducers/sessionsSlice";
 import { useLocalStorage } from "./components";
+import { setParentsReducer } from "./services/reducers/parentsSlice";
 
 const App = () => {
   const [isOpen, setIsOpen] = useLocalStorage(false);
@@ -29,6 +30,8 @@ const App = () => {
     "sessions",
     []
   );
+
+  const [parents, setParents, removeParents] = useLocalStorage("parents", []);
 
   const updateScreenSize = () => {
     const screenWidth = window.innerWidth;
@@ -131,16 +134,38 @@ const App = () => {
       console.error(error);
     }
   };
+
+  const getParents = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "parentsTable"));
+      const data = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      setParents(data);
+      updateSlice(setParentsReducer, data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
+    // get students
     students.length === 0
       ? getStudents()
       : updateSlice(setStudentsReducer, students);
+    // get teachers
     teachers.length === 0
       ? getTeachers()
       : updateSlice(setTeachersAttendanceReducer, teachers);
+    // get sessions
     sessions.length === 0
       ? getSessions()
       : updateSlice(setSessionsReducer, sessions);
+    // get parents
+    parents.length === 0
+      ? getParents()
+      : updateSlice(setParentsReducer, parents);
   }, [students, teachers, sessions]);
 
   return (
@@ -185,6 +210,7 @@ const App = () => {
             </>
           )} */}
           <Container fluid>
+            <FormsContainer />
             <Row>
               <Col xs={9} md={11}>
                 <Navbar screenSize={screenSize} />
