@@ -1,9 +1,10 @@
 import React from "react";
 import "./FormsRouter.css";
 import { StudentsForm } from "../../containers";
+import { useSelector } from "react-redux";
 
 const FormsRouter = () => {
-  const path = "/student";
+  const path = useSelector((state) => state.showForm.value.path);
 
   const router = {
     "/student": <StudentsForm />,

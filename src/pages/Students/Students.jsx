@@ -18,8 +18,9 @@ import "./Students.css";
 //   deleteDoc,
 //   doc,
 // } from "firebase/firestore";
-import { useSelector } from "react-redux";
-import useDebouncedSearch from "../../components/useDebouncedSearch/useDebouncedSearch";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setFormStatus } from "../../services/reducers/showFormSlice";
 // import { getStudentsReducer } from "../../services/reducers/studentsSlice";
 
 const Students = () => {
@@ -32,6 +33,7 @@ const Students = () => {
     []
   );
   const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
+  const dispatch = useDispatch();
 
   const rearrangeStudentProperties = (obj) => {
     const {
@@ -88,7 +90,37 @@ const Students = () => {
 
   // actions
 
-  const firstColActions = ["إضافة", "تعديل", "تحديد الكل", "إلغاء"];
+  const firstColActions = [
+    {
+      text: "اضافة",
+      onClick: () =>
+        dispatch(
+          setFormStatus({ show: true, path: "/student", action: "ADD" })
+        ),
+      disabled: false,
+    },
+    {
+      text: "تعديل",
+      onClick: () =>
+        dispatch(
+          setFormStatus({ show: true, path: "/student", action: "EDIT" })
+        ),
+      disabled: false,
+    },
+    {
+      text: "حذف",
+      disabled: true,
+    },
+    {
+      text: "تحديد الكل",
+      disabled: true,
+    },
+    {
+      text: "إلغاء",
+      disabled: true,
+    },
+  ];
+
   const secondColActions = ["طباعة", "إظهار", "Excel", "إظهار 10 اسطر"];
 
   const show = {
@@ -96,16 +128,6 @@ const Students = () => {
     first: firstColActions,
     second: secondColActions,
   };
-
-  // const optionsArray = [
-  //   "حلقة الشيخ جمال طيبي",
-  //   "حلقة الشيخ رمضان بحري",
-  //   "حلقة الشيخ عبدالحميد",
-  //   "حلقة الشيخ حمزة مهرهرة",
-  //   "حلقة الشيخ علي زقاي",
-  //   "حلقة الشيخ أحمد لملوم",
-  //   "حلقة الشيخ زكريا العنابي",
-  // ];
 
   const filterInputs = [
     {

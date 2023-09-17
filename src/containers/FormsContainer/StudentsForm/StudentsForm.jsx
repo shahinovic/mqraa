@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./StudentsForm.css";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
+  FormInput,
+  FormSelect,
   SchoolLogo,
   StudentsFilter,
   useLocalStorage,
 } from "../../../components";
 import { useSelector } from "react-redux";
+import { v4 } from "uuid";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../config/firebase";
 
 const StudentsForm = () => {
   const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useLocalStorage(
@@ -17,6 +22,7 @@ const StudentsForm = () => {
     "SFSessionsName",
     []
   );
+
   const [parentsOptionsSFArray, setParentsOptionsSFArray] = useLocalStorage(
     "parentsOptionsSFArray",
     []
@@ -30,12 +36,200 @@ const StudentsForm = () => {
 
   const [addParent, setAddParent] = useLocalStorage("addParent", false);
 
-  const myObj = {};
+  const formTitle =
+    useSelector((state) => state.showForm.value.action) === "ADD"
+      ? "إضافة"
+      : "تعديل";
 
-  const formTitle = Object.keys(myObj).length === 0 ? "إضافة" : "تعديل";
+  // Define state variables for form validation
+  const [validated, setValidated] = useState(false);
+
+  // Define state variables for form input values and validation
+  const [formData, setFormData] = useState({
+    // Define initial values for form inputs here
+    name: "",
+    kinaya: "",
+    foreignName: "",
+    foreignKinaya: "",
+    gender: "",
+    dateOfBirth: "",
+    placeOfBirth: "",
+    nationality: "",
+    address: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    hasDisease: "",
+    diseaseReason: "",
+    phoneNumber: "",
+    email: "",
+    fatherStatus: "",
+    motherStatus: "",
+    bankCode: "",
+    accountNumber: "",
+    parentName: "",
+    parentKinaya: "",
+    parentPhoneNumber: "",
+    parentEmail: "",
+    relativeRelation: "",
+    sessions: [],
+    studentAvatar: null,
+  });
+
+  // Handle form input changes
+
+  const handleInputChange = (event) => {
+    if (event?.target?.type === "file") {
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        const imageUrl = URL.createObjectURL(selectedFile);
+        setStudentPic(imageUrl);
+        setFormData({
+          ...formData,
+          [event.target.name]: selectedFile,
+        });
+      }
+    } else if (Array.isArray(event)) {
+      if (!Object.values(formData.sessions).includes(event[0])) {
+        setFormData({
+          ...formData,
+          sessions: [...formData.sessions, event[0]],
+        });
+      }
+    } else {
+      const { name, value } = event.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  useEffect(() => {
+    console.log("formData.sessions", formData.sessions);
+  }, [formData]);
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    console.log("🚀 ~ file: StudentsForm.jsx:117 ~ handleSubmit ~ form:", form);
+
+    // Check if the form is valid
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:120 ~ handleSubmit ~ form.checkValidity():",
+      form.checkValidity()
+    );
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+
+    // Mark the form as validated
+    setValidated(true);
+
+    // Add custom validation logic here, if needed
+    if (form.checkValidity() === true) {
+      const {
+        name,
+        kinaya,
+        foreignName,
+        foreignKinaya,
+        gender,
+        dateOfBirth,
+        placeOfBirth,
+        nationality,
+        address,
+        username,
+        password,
+        confirmPassword,
+        hasDisease,
+        diseaseReason,
+        phoneNumber,
+        email,
+        fatherStatus,
+        motherStatus,
+        bankCode,
+        accountNumber,
+        parentName,
+        parentKinaya,
+        parentPhoneNumber,
+        parentEmail,
+        relativeRelation,
+      } = formData;
+      const session = SFSessionsName;
+      const savedParentName = SFParentsNames;
+      console.log("🚀 ~ file: StudentsForm.jsx:157: All Data", {
+        name,
+        kinaya,
+        foreignName,
+        foreignKinaya,
+        gender,
+        dateOfBirth,
+        placeOfBirth,
+        nationality,
+        address,
+        username,
+        password,
+        confirmPassword,
+        hasDisease,
+        diseaseReason,
+        phoneNumber,
+        email,
+        fatherStatus,
+        motherStatus,
+        bankCode,
+        accountNumber,
+        parentName,
+        parentKinaya,
+        parentPhoneNumber,
+        parentEmail,
+        relativeRelation,
+        session,
+        savedParentName,
+      });
+      // const imgRef = ref(db, `studentsImages/${name}-${kinaya}-${username}`);
+      //   uploadBytes(imgRef, studentAvatar);
+      //   try {
+      //     const docRef = await addDoc(collection(db, "studentsTable"), {
+      //       name,
+      //       kinaya,
+      //       foreignName,
+      //       foreignKinaya,
+      //       gender,
+      //       dateOfBirth,
+      //       placeOfBirth,
+      //       nationality,
+      //       address,
+      //       username,
+      //       password,
+      //       confirmPassword,
+      //       hasDisease,
+      //       diseaseReason,
+      //       phoneNumber,
+      //       email,
+      //       fatherStatus,
+      //       motherStatus,
+      //       bankCode,
+      //       accountNumber,
+      //       parentName,
+      //       parentKinaya,
+      //       parentPhoneNumber,
+      //       parentEmail,
+      //       relativeRelation,
+      //       session,
+      //       savedParentName,
+      //     });
+      //     console.log("Document written with ID: ", docRef.id);
+      //   } catch (e) {
+      //     console.error("Error adding document: ", e);
+      //   }
+    }
+  };
 
   // filter Inputs
   const options = useSelector((state) => state.sessions.value);
+
   useEffect(() => {
     setSessionsOptionsSFArray(options.map((option) => option.sessionName));
     setParentsOptionsSFArray(parentsOptions.map((option) => option.parentName));
@@ -44,6 +238,7 @@ const StudentsForm = () => {
   const filterInputs = [
     {
       cols: 12,
+      required: true,
       type: "text",
       formPlaceholder: "اختر الحلقة",
       optionsArray: sessionsOptionsSFArray,
@@ -68,158 +263,317 @@ const StudentsForm = () => {
     },
   ];
 
+  // component destructor
+
+  const studentsFormData = [
+    {
+      title: "المعلومات الشخصية للطالب",
+      cols: [
+        {
+          required: true,
+          md: 6,
+          label: "الاسم",
+          type: "text",
+          name: "name",
+          placeholder: "ادخل اسم الطالب",
+          value: formData.name,
+          onChange: handleInputChange,
+          pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+          feedback: "الرجاء ادخال حروف عربية ومسافات فقط.",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "الكنية",
+          type: "text",
+          name: "kinaya",
+          placeholder: "ادخل اسم الكنية",
+          value: formData.kinaya,
+          onChange: handleInputChange,
+          pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+          feedback: "الرجاء ادخال حروف عربية فقط.",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "الاسم الأجنبي",
+          type: "text",
+          name: "foreignName",
+          placeholder: "ادخل اسم الأجنبي",
+          value: formData.foreignName,
+          onChange: handleInputChange,
+          pattern: "^[A-Za-z][A-Za-z0-9]*$",
+          feedback: "الرجاء ادخال حروف الانجليزية فقط",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "الكنية الأجنبية",
+          type: "text",
+          name: "foreignKinaya",
+          placeholder: "ادخل الكنية الأجنبي",
+          value: formData.foreignKinaya,
+          onChange: handleInputChange,
+          pattern: "^[A-Za-z][A-Za-z0-9]*$",
+          feedback: "الرجاء ادخال حروف الانجليزية فقط",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "الجنس",
+          type: "select",
+          name: "gender",
+          value: formData.gender,
+          onChange: handleInputChange,
+          placeholder: "الجنس",
+          options: [
+            {
+              label: "تحديد",
+              value: "تحديد",
+            },
+            {
+              label: "ذكر",
+              value: "ذكر",
+            },
+            {
+              label: "أنثى",
+              value: "أنثى",
+            },
+          ],
+        },
+        {
+          required: true,
+          md: 6,
+          label: "تاريخ الميلاد",
+          type: "date",
+          name: "dateOfBirth",
+          value: formData.dateOfBirth,
+          onChange: handleInputChange,
+        },
+        {
+          md: 6,
+          label: "مكان الميلاد",
+          type: "text",
+          name: "placeOfBirth",
+          value: formData.placeOfBirth,
+          placeholder: "ادخل مكان الميلاد",
+          onChange: handleInputChange,
+        },
+        {
+          required: true,
+          md: 6,
+          label: "الجنسية",
+          type: "text",
+          name: "nationality",
+          placeholder: "ادخل الجنسية",
+          value: formData.nationality,
+          onChange: handleInputChange,
+        },
+        {
+          required: true,
+          md: 12,
+          label: "العنوان",
+          type: "text",
+          name: "address",
+          placeholder: "ادخل العنوان",
+          value: formData.address,
+          onChange: handleInputChange,
+        },
+      ],
+    },
+    {
+      title: "معلومات تخص الحساب",
+      cols: [
+        {
+          required: true,
+          md: 12,
+          label: "اسم المستخدم",
+          type: "text",
+          name: "username",
+          placeholder: "ادخل اسم المستخدم",
+          value: formData.username,
+          onChange: handleInputChange,
+          pattern: `^[a-zA-Z0-9!@#$%^&*()-_=+[\\]{};:'",.<>?]+$`,
+          feedback:
+            "الرجاء استخدام الحروف الانجليزية والارقام والحروف المميزة فقط",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "كلمة المرور",
+          type: "password",
+          name: "password",
+          placeholder: "ادخل كلمة المرور",
+          value: formData.password,
+          onChange: handleInputChange,
+          pattern: `^[a-zA-Z0-9!@#$%^&*()-_=+[\\]{};:'",.<>?]+$`,
+          feedback:
+            "الرجاء استخدام الحروف الانجليزية والارقام والحروف المميزة فقط",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "تأكيد كلمة المرور",
+          type: "password",
+          name: "confirmPassword",
+          placeholder: "تأكيد كلمة المرور",
+          value: formData.confirmPassword,
+          onChange: handleInputChange,
+          pattern: formData.password,
+          feedback: "الرجاء تأكيد كلمة المرور بشكل صحيح",
+        },
+      ],
+    },
+    {
+      title: "معلومات صحية",
+      cols: [
+        {
+          required: true,
+          md: 6,
+          label: "يعاني من مرض",
+          type: "select",
+          name: "hasDisease",
+          value: formData.hasDisease,
+          onChange: handleInputChange,
+          options: [
+            {
+              label: "تحديد",
+              value: "تحديد",
+            },
+            {
+              label: "نعم",
+              value: "نعم",
+            },
+            {
+              label: "لا",
+              value: "لا",
+            },
+          ],
+        },
+        {
+          required: true,
+          md: 6,
+          label: "سبب المرض",
+          type: "text",
+          name: "diseaseReason",
+          placeholder: "ادخل سبب المرض",
+          value: formData.diseaseReason,
+          onChange: handleInputChange,
+        },
+      ],
+    },
+    {
+      title: "معلومات الاتصال",
+      cols: [
+        {
+          required: true,
+          md: 6,
+          label: "رقم الهاتف",
+          type: "tel",
+          name: "phoneNumber",
+          placeholder: "ادخل رقم الهاتف",
+          value: formData.phoneNumber,
+          onChange: handleInputChange,
+          pattern: /^(?:\+971|0)(?:50|52|54|55|56|58)\d{6}$/u,
+          feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "البريد الإلكتروني",
+          type: "email",
+          name: "email",
+          placeholder: "ادخل البريد الإلكتروني",
+          value: formData.email,
+          onChange: handleInputChange,
+          pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/u,
+          feedback: "الرجاء ادخال عنوان بريد إلكتروني صحيح",
+        },
+      ],
+    },
+    {
+      title: "معلومات الحساب",
+      cols: [
+        {
+          required: true,
+          md: 6,
+          label: "رقم الحساب",
+          type: "number",
+          name: "accountNumber",
+          placeholder: "ادخل رقم الحساب",
+          value: formData.accountNumber,
+          onChange: handleInputChange,
+          pattern: /^[0-9]+$/u,
+          feedback: "الرجاء ادخال رقم حساب صحيح (أرقام فقط).",
+        },
+        {
+          required: true,
+          md: 6,
+          label: "رمز البنك",
+          type: "number",
+          name: "bankCode",
+          placeholder: "ادخل رمز البنك",
+          value: formData.bankCode,
+          onChange: handleInputChange,
+          pattern: /^[0-9]+$/u,
+          feedback: "الرجاء ادخال رمز بنكي صحيح (أرقام فقط).",
+        },
+      ],
+    },
+  ];
+
   return (
     <div className="students-form  w-100 h-100 text-center">
-      <h2>{formTitle}</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
+        <h2>{formTitle}</h2>
         <div>
           <h3>معلومات الانتساب</h3>
           <StudentsFilter filterInputs={filterInputs} />
         </div>
-        <div>
-          <h3>المعلومات الشخصية للطالب</h3>
-          <Row>
-            <Col md={6}>
-              <Form.Label>الاسم :</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="ادخل اسم الطالب"
-              />
-            </Col>
-            <Col md={6}>
-              <Form.Label>الكنية :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل كنية الطالب" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>الاسم بالأجنبي :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل كنية الطالب" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>الكنية بالأجنبي :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل كنية الطالب" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>الجنس :</Form.Label>
-              <Form.Select aria-label="Default select">
-                <option>تحديد</option>
-                <option value="1">ذكر</option>
-                <option value="2">انثي</option>
-              </Form.Select>
-            </Col>
-            <Col md={6} style={{ display: "flex" }}>
-              <div>
-                <Form.Label>اليوم :</Form.Label>
-                <Form.Control type="number" placeholder="ادخل يوم الميلاد" />
-              </div>
-              <div>
-                <Form.Label>الشهر :</Form.Label>
-                <Form.Control type="number" placeholder="ادخل شهر الميلاد" />
-              </div>
-              <div>
-                <Form.Label>السنة :</Form.Label>
-                <Form.Control type="number" placeholder="ادخل سنة الميلاد" />
-              </div>
-            </Col>
-            <Col md={6}>
-              <Form.Label>مكان الميلاد :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل مكان الميلاد" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>الجنسية :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل الجنسية" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>العنوان :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل العنوان" />
-            </Col>
-          </Row>
-        </div>
-        <div>
-          <h3>معلومات تخص الحساب</h3>
-          <Row>
-            <Col md={6}>
-              <Form.Label>اسم المستخدم :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل اسم المستخدم" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>كلمة السر :</Form.Label>
-              <Form.Control type="text" placeholder="ادخل كلمة السر" />
-            </Col>
-          </Row>
-        </div>
+        {studentsFormData.map((ele, index) => {
+          return (
+            <div key={index}>
+              <h3>{ele.title}</h3>
+              <Row>
+                {ele.cols.map((col, index) => {
+                  if (col.type === "select") {
+                    return (
+                      <FormSelect
+                        handleInputChange={handleInputChange}
+                        col={col}
+                        formData={formData}
+                        index={index}
+                        key={index + col.pattern}
+                      />
+                    );
+                  } else {
+                    return (
+                      <FormInput
+                        handleInputChange={handleInputChange}
+                        formData={formData}
+                        col={col}
+                        index={index}
+                        key={index + col.pattern}
+                      />
+                    );
+                  }
+                })}
+              </Row>
+            </div>
+          );
+        })}
 
-        <div>
-          <h3>معلومات صحية</h3>
-          <Row>
-            <Col md={6}>
-              <Form.Label>يعاني من مرض :</Form.Label>
-              <Form.Select aria-label="Default select">
-                <option>تحديد</option>
-                <option value="1">نعم</option>
-                <option value="2">لا</option>
-              </Form.Select>
-            </Col>
-            <Col md={6}>
-              <Form.Label>سبب المرض :</Form.Label>
-              <Form.Control type="text" />
-            </Col>
-          </Row>
-        </div>
-        <div>
-          <h3>بيانات التواصل</h3>
-          <Row>
-            <Col md={6}>
-              <Form.Label>رقم الهاتف :</Form.Label>
-              <Form.Control type="text" />
-            </Col>
-            <Col md={6}>
-              <Form.Label>البريد الإلكتروني :</Form.Label>
-              <Form.Control type="text" />
-            </Col>
-          </Row>
-        </div>
-        <div>
-          <h3>حالة الابوين</h3>
-          <Row>
-            <Col md={6}>
-              <Form.Label>حالة الأب :</Form.Label>
-              <Form.Select aria-label="Default select">
-                <option>تحديد</option>
-                <option value="1">علي قيد الحياة</option>
-                <option value="2">ليس علي قيد الحياة</option>
-              </Form.Select>
-            </Col>
-            <Col md={6}>
-              <Form.Label>حالة الأم :</Form.Label>
-              <Form.Select aria-label="Default select">
-                <option>تحديد</option>
-                <option value="1">علي قيد الحياة</option>
-                <option value="2">ليست علي قيد الحياة</option>
-              </Form.Select>
-            </Col>
-          </Row>
-        </div>
         <div>
           <h3>
             <span>بيانات اولياء الامور</span>{" "}
             {addParent ? (
-              <>
-                <Button
-                  className="mx-3"
-                  onClick={() => setAddParent(!addParent)}
-                  variant="danger"
-                >
-                  إلغاء
-                </Button>
-                <Button
-                  className="mx-3"
-                  onClick={() => setAddParent(!addParent)}
-                  variant="success"
-                >
-                  تأكيد
-                </Button>
-              </>
+              <Button
+                className="mx-3"
+                onClick={() => setAddParent(!addParent)}
+                variant="danger"
+              >
+                إلغاء
+              </Button>
             ) : (
               <Button
                 className="mx-4"
@@ -234,30 +588,103 @@ const StudentsForm = () => {
             <Col>
               {addParent ? (
                 <Row>
-                  <Col md={6}>
-                    <Form.Label>الاسم :</Form.Label>
-                    <Form.Control type="text" />
-                  </Col>
-                  <Col md={6}>
-                    <Form.Label>الكنية :</Form.Label>
-                    <Form.Control type="text" />
-                  </Col>
-                  <Col md={6}>
-                    <Form.Label>رقم الهاتف (سيعتبر اسم المستخدم) :</Form.Label>
-                    <Form.Control type="text" />
-                  </Col>
-                  <Col md={6}>
-                    <Form.Label>البريد الإلكتروني :</Form.Label>
-                    <Form.Control type="email" />
-                  </Col>
-                  <Col>
-                    <Form.Label>صلة القرابة :</Form.Label>
-                    <Form.Select aria-label="Default select">
-                      <option>تحديد</option>
-                      <option value="1">اب</option>
-                      <option value="2">ام</option>
-                    </Form.Select>
-                  </Col>
+                  <FormInput
+                    handleInputChange={handleInputChange}
+                    formData={formData}
+                    col={{
+                      required: true,
+                      md: 12,
+                      label: "الاسم",
+                      type: "text",
+                      name: "parentName",
+                      placeholder: "ادخل اسم الولي",
+                      value: formData.parentName,
+                      onChange: handleInputChange,
+                      pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+                      feedback: "الرجاء ادخال حروف عربية فقط.",
+                    }}
+                    index={32}
+                  />
+                  <FormInput
+                    handleInputChange={handleInputChange}
+                    formData={formData}
+                    col={{
+                      required: true,
+                      md: 6,
+                      label: "الكنية",
+                      type: "text",
+                      name: "parentKinaya",
+                      placeholder: "ادخل كنية الولي",
+                      value: formData.parentKinaya,
+                      onChange: handleInputChange,
+                      pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+                      feedback: "الرجاء ادخال حروف عربية فقط.",
+                    }}
+                    index={32}
+                  />
+                  <FormInput
+                    handleInputChange={handleInputChange}
+                    formData={formData}
+                    col={{
+                      required: true,
+                      md: 6,
+                      label: "رقم الهاتف (سيعتبر اسم المستخدم)",
+                      type: "tel",
+                      name: "parentPhoneNumber",
+                      placeholder: "ادخل رقم هاتف الولي",
+                      value: formData.parentPhoneNumber,
+                      onChange: handleInputChange,
+                      pattern: /^(?:\+971|0)(?:50|52|54|55|56|58)\d{6}$/u,
+                      feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
+                    }}
+                    index={32}
+                  />
+                  <FormInput
+                    handleInputChange={handleInputChange}
+                    formData={formData}
+                    col={{
+                      required: true,
+                      md: 6,
+                      label: "البريد الإلكتروني :",
+                      type: "email",
+                      name: "parentEmail",
+                      placeholder: "ادخل البريد الإلكتروني للولي",
+                      value: formData.parentEmail,
+                      onChange: handleInputChange,
+                      pattern:
+                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/u,
+                      feedback: "الرجاء ادخال عنوان بريد إلكتروني صحيح",
+                    }}
+                    index={32}
+                  />
+                  <FormSelect
+                    handleInputChange={handleInputChange}
+                    col={{
+                      required: true,
+                      md: 6,
+                      label: "صلة القرابة",
+                      type: "select",
+                      name: "relativeRelation",
+                      value: formData.relativeRelation,
+                      onChange: handleInputChange,
+                      options: [
+                        {
+                          label: "تحديد",
+                          value: "تحديد",
+                        },
+                        {
+                          label: "اب",
+                          value: "اب",
+                        },
+                        {
+                          label: "ام",
+                          value: "ام",
+                        },
+                      ],
+                    }}
+                    formData={formData}
+                    index={1}
+                  />
                 </Row>
               ) : (
                 <StudentsFilter filterInputs={parentArray} />
@@ -272,14 +699,16 @@ const StudentsForm = () => {
               <div className="img-container edit">
                 <SchoolLogo
                   edit={false}
-                  schoolLogo={studentPic}
-                  setSchoolLogo={setStudentPic}
+                  name="studentAvatar"
+                  schoolLogo={formData.studentAvatar}
+                  studentPic={studentPic}
+                  handleLogoChange={handleInputChange}
                 />
               </div>
             </Col>
           </Row>
         </div>
-        <Button variant="success" className="w-75 my-5 ">
+        <Button variant="success" type="submit" className="w-75 my-5 ">
           حفظ
         </Button>
       </Form>
@@ -288,3 +717,12 @@ const StudentsForm = () => {
 };
 
 export default StudentsForm;
+
+/*
+
+parentName: "",
+    parentKinaya: "",
+    parentPhoneNumber: "",
+    parentEmail: "",
+
+    */

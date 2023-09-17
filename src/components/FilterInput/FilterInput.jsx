@@ -8,6 +8,7 @@ const FilterInput = ({ input, index }) => {
 
   const {
     cols,
+    required,
     type,
     optionsArray,
     formLabel,
@@ -54,6 +55,7 @@ const FilterInput = ({ input, index }) => {
             <Form.Label>{formLabel}</Form.Label>
             <Form.Group controlId="sessionSearch">
               <Form.Control
+                required={true}
                 type={type}
                 value={searchTerm}
                 onFocus={() => setIsDropdownOpen(true)}

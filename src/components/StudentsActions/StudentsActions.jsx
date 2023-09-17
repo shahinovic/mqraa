@@ -1,23 +1,16 @@
 import { Button, Col, Row } from "react-bootstrap";
 import "./StudentsActions.css";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { setFormStatus } from "../../services/reducers/showFormSlice";
+// import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
+
+import { ActionButton } from "../../components";
 
 const StudentsActions = ({ show }) => {
   const { state, first, second } = show;
 
-  const dispatch = useDispatch();
-
   const renderFirstColActions = () => {
     return first.map((action, index) => (
-      <button
-        onClick={() => dispatch(setFormStatus(true))}
-        key={action + index}
-        className="btn  ms-2"
-      >
-        {action}
-      </button>
+      <ActionButton key={action.text + index} {...action} />
     ));
   };
 

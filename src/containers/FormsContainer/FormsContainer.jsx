@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFormStatus } from "../../services/reducers/showFormSlice";
 
 const FormsContainer = () => {
-  const show = useSelector((state) => state.showForm.value);
+  const show = useSelector((state) => state.showForm.value).show;
   const dispatch = useDispatch();
   const handleFormsContainerClick = (e) => {
     e.target.classList.contains("forms-container") &&
-      dispatch(setFormStatus(false));
+      dispatch(setFormStatus({ show: false }));
   };
   return (
     <div
@@ -22,11 +22,3 @@ const FormsContainer = () => {
 };
 
 export default FormsContainer;
-
-/*
-
-عايزين نعمل فانكشن عاملة زي  ال redux
-يا تدينا اوبجيكت فيه داتا او اوبجيكت فاضي
-
-
-*/
