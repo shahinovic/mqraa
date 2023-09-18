@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Content, FormsContainer, Navbar, SideBar } from "./containers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LogIn } from "./pages";
 import { useAuth0 } from "@auth0/auth0-react";
 import { collection, getDocs } from "firebase/firestore";
@@ -17,19 +17,10 @@ const App = () => {
   const [screenSize, setScreenSize] = useLocalStorage("screenSize", "");
   const { isAuthenticated, logout } = useAuth0();
   const { isLoading, error } = useAuth0();
-  const [students, setStudents, removeStudents] = useLocalStorage(
-    "students",
-    []
-  );
+  const [students, setStudents] = useState([]);
 
-  const [teachers, setTeachers, removeTeachers] = useLocalStorage(
-    "teachers",
-    []
-  );
-  const [sessions, setSessions, removeSessions] = useLocalStorage(
-    "sessions",
-    []
-  );
+  const [teachers, setTeachers] = useState([]);
+  const [sessions, setSessions] = useState([]);
 
   const [parents, setParents, removeParents] = useLocalStorage("parents", []);
 
@@ -150,22 +141,19 @@ const App = () => {
     }
   };
   useEffect(() => {
-    // get students
-    students.length === 0
-      ? getStudents()
-      : updateSlice(setStudentsReducer, students);
-    // get teachers
-    teachers.length === 0
-      ? getTeachers()
-      : updateSlice(setTeachersAttendanceReducer, teachers);
-    // get sessions
-    sessions.length === 0
-      ? getSessions()
-      : updateSlice(setSessionsReducer, sessions);
-    // get parents
-    parents.length === 0
-      ? getParents()
-      : updateSlice(setParentsReducer, parents);
+    const timeout = setTimeout(() => {
+      // get students
+      getStudents();
+      // get teachers
+      getTeachers();
+      // get sessions
+      getSessions();
+      // get parents
+      getParents();
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [students, teachers, sessions]);
 
   return (

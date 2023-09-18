@@ -8,11 +8,6 @@ const SchoolLogo = ({
   handleLogoChange,
   studentPic,
 }) => {
-  console.log(
-    "🚀 ~ file: SchoolLogo.jsx:10 ~ handleLogoChange:",
-    handleLogoChange
-  );
-
   if (handleLogoChange === undefined) {
     handleLogoChange = (event) => {
       const selectedFile = event.target.files[0];

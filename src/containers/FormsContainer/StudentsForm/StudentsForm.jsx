@@ -8,10 +8,12 @@ import {
   StudentsFilter,
   useLocalStorage,
 } from "../../../components";
-import { useSelector } from "react-redux";
-import { v4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../config/firebase";
+import { ref as storageRef, uploadBytes } from "firebase/storage";
+import { db, storage } from "../../../config/firebase";
+import { getStudents } from "../../../services/reducers/studentsSlice";
 
 const StudentsForm = () => {
   const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useLocalStorage(
@@ -75,8 +77,102 @@ const StudentsForm = () => {
     sessions: [],
     studentAvatar: null,
   });
-
+  const dispatch = useDispatch();
   // Handle form input changes
+
+  const uploadData = async (data, SFSessionsName, SFParentsNames) => {
+    const {
+      name,
+      kinaya,
+      foreignName,
+      foreignKinaya,
+      gender,
+      dateOfBirth,
+      placeOfBirth,
+      nationality,
+      address,
+      username,
+      password,
+      confirmPassword,
+      hasDisease,
+      diseaseReason,
+      phoneNumber,
+      email,
+      fatherStatus,
+      motherStatus,
+      bankCode,
+      accountNumber,
+      parentName,
+      parentKinaya,
+      parentPhoneNumber,
+      parentEmail,
+      relativeRelation,
+      studentAvatar,
+    } = data;
+    const session = SFSessionsName;
+    const savedParentName = SFParentsNames;
+
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:170 ~ handleSubmit ~ `studentsImages/${foreignName}-${foreignKinaya}-${username}`:",
+      `studentsImages/${foreignName}_${foreignKinaya}_${username}`,
+      studentAvatar
+    );
+
+    const imgRef = storageRef(
+      storage,
+      `studentsImages/${foreignName}_${foreignKinaya}_${username}.${
+        studentAvatar?.type.split("/")[1]
+      }`
+    );
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:196 ~ handleSubmit ~ imgRef:",
+      imgRef
+    );
+    try {
+      console.log(
+        "🚀 ~ file: StudentsForm.jsx:132 ~ uploadData ~ imgRef, studentAvatar:",
+        imgRef,
+        studentAvatar
+      );
+      uploadBytes(imgRef, studentAvatar);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    try {
+      const docRef = await addDoc(collection(db, "studentsTable"), {
+        name,
+        kinaya,
+        foreignName,
+        foreignKinaya,
+        gender,
+        dateOfBirth,
+        placeOfBirth,
+        nationality,
+        address,
+        username,
+        password,
+        confirmPassword,
+        hasDisease,
+        diseaseReason,
+        phoneNumber,
+        email,
+        fatherStatus,
+        motherStatus,
+        bankCode,
+        accountNumber,
+        parentName,
+        parentKinaya,
+        parentPhoneNumber,
+        parentEmail,
+        relativeRelation,
+        session: session,
+        savedParentName: savedParentName,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
 
   const handleInputChange = (event) => {
     if (event?.target?.type === "file") {
@@ -105,22 +201,14 @@ const StudentsForm = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("formData.sessions", formData.sessions);
-  }, [formData]);
-
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    console.log("🚀 ~ file: StudentsForm.jsx:117 ~ handleSubmit ~ form:", form);
 
     // Check if the form is valid
-    console.log(
-      "🚀 ~ file: StudentsForm.jsx:120 ~ handleSubmit ~ form.checkValidity():",
-      form.checkValidity()
-    );
+
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
@@ -129,101 +217,10 @@ const StudentsForm = () => {
     setValidated(true);
 
     // Add custom validation logic here, if needed
+
     if (form.checkValidity() === true) {
-      const {
-        name,
-        kinaya,
-        foreignName,
-        foreignKinaya,
-        gender,
-        dateOfBirth,
-        placeOfBirth,
-        nationality,
-        address,
-        username,
-        password,
-        confirmPassword,
-        hasDisease,
-        diseaseReason,
-        phoneNumber,
-        email,
-        fatherStatus,
-        motherStatus,
-        bankCode,
-        accountNumber,
-        parentName,
-        parentKinaya,
-        parentPhoneNumber,
-        parentEmail,
-        relativeRelation,
-      } = formData;
-      const session = SFSessionsName;
-      const savedParentName = SFParentsNames;
-      console.log("🚀 ~ file: StudentsForm.jsx:157: All Data", {
-        name,
-        kinaya,
-        foreignName,
-        foreignKinaya,
-        gender,
-        dateOfBirth,
-        placeOfBirth,
-        nationality,
-        address,
-        username,
-        password,
-        confirmPassword,
-        hasDisease,
-        diseaseReason,
-        phoneNumber,
-        email,
-        fatherStatus,
-        motherStatus,
-        bankCode,
-        accountNumber,
-        parentName,
-        parentKinaya,
-        parentPhoneNumber,
-        parentEmail,
-        relativeRelation,
-        session,
-        savedParentName,
-      });
-      // const imgRef = ref(db, `studentsImages/${name}-${kinaya}-${username}`);
-      //   uploadBytes(imgRef, studentAvatar);
-      //   try {
-      //     const docRef = await addDoc(collection(db, "studentsTable"), {
-      //       name,
-      //       kinaya,
-      //       foreignName,
-      //       foreignKinaya,
-      //       gender,
-      //       dateOfBirth,
-      //       placeOfBirth,
-      //       nationality,
-      //       address,
-      //       username,
-      //       password,
-      //       confirmPassword,
-      //       hasDisease,
-      //       diseaseReason,
-      //       phoneNumber,
-      //       email,
-      //       fatherStatus,
-      //       motherStatus,
-      //       bankCode,
-      //       accountNumber,
-      //       parentName,
-      //       parentKinaya,
-      //       parentPhoneNumber,
-      //       parentEmail,
-      //       relativeRelation,
-      //       session,
-      //       savedParentName,
-      //     });
-      //     console.log("Document written with ID: ", docRef.id);
-      //   } catch (e) {
-      //     console.error("Error adding document: ", e);
-      //   }
+      await uploadData(formData, SFSessionsName, SFParentsNames);
+      dispatch(getStudents());
     }
   };
 
@@ -263,7 +260,7 @@ const StudentsForm = () => {
     },
   ];
 
-  // component destructor
+  // component configuration
 
   const studentsFormData = [
     {
@@ -451,7 +448,7 @@ const StudentsForm = () => {
           ],
         },
         {
-          required: true,
+          required: false,
           md: 6,
           label: "سبب المرض",
           type: "text",
@@ -474,7 +471,7 @@ const StudentsForm = () => {
           placeholder: "ادخل رقم الهاتف",
           value: formData.phoneNumber,
           onChange: handleInputChange,
-          pattern: /^(?:\+971|0)(?:50|52|54|55|56|58)\d{6}$/u,
+          pattern: "^\\+?\\d{7,15}$",
           feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
         },
         {
@@ -634,7 +631,7 @@ const StudentsForm = () => {
                       placeholder: "ادخل رقم هاتف الولي",
                       value: formData.parentPhoneNumber,
                       onChange: handleInputChange,
-                      pattern: /^(?:\+971|0)(?:50|52|54|55|56|58)\d{6}$/u,
+                      pattern: "^\\+?\\d{7,15}$",
                       feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
                     }}
                     index={32}

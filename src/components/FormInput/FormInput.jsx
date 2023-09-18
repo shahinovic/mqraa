@@ -25,7 +25,6 @@ const FormInput = ({ handleInputChange, formData, col, index }) => {
     // Update invalid whenever formData or col changes
     if (formData[col.name] !== "") {
       setInvalid(isInvalid(col).isInvalid);
-      console.log(isInvalid(col));
     }
   }, [formData, col]);
 

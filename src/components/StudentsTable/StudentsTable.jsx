@@ -16,16 +16,34 @@ const StudentsTable = ({
       studentsData
     );
     return studentsData?.map((student) => {
-      console.log(
-        "🚀 ~ file: StudentsTable.jsx:18 ~ returnstudentsData?.map ~ student:",
-        selectedStudent
-      );
+      // console.log(
+      //   "🚀 ~ file: StudentsTable.jsx:18 ~ returnstudentsData?.map ~ student:",
+      //   selectedStudent
+      // );
 
       const keys = Object.keys(student);
       const tds = keys.map((ele, index) => {
+        console.log(
+          "student[ele]",
+          ele === "sessions" ? student[`${ele}`] : null
+        );
         if (index >= headers.length) return;
-        if (typeof student[`${ele}`].$$typeof === "symbol")
+        if (typeof student[`${ele}`]?.$$typeof === "symbol")
           return <td key={student.id + student.username}>{student[ele]}</td>;
+
+        if (Array.isArray(student[ele])) {
+          console.log(
+            "🚀 ~ file: StudentsTable.jsx:32 ~ tds ~ student[`${ele}`]:",
+            student[`${ele}`]
+          );
+          // <td key={student.id + student.username}>
+          //   {student[`${ele}`].map((ele) => (
+          //     <span key={student.id + student.username} className="badge">
+          //       {ele}
+          //     </span>
+          //   ))}
+          // </td>;
+        }
         if (typeof student[`${ele}`] === "object" && ele !== "attendance") {
           return (
             <td key={student.id + student.username}>

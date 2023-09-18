@@ -38,24 +38,42 @@ const Students = () => {
   const rearrangeStudentProperties = (obj) => {
     const {
       name,
-      nickname,
+      kinaya,
+      foreignName,
+      foreignKinaya,
       gender,
-      sessions,
-      username,
-      date,
-      birthPlace,
+      dateOfBirth,
+      placeOfBirth,
       nationality,
-      identityType,
+      address,
+      username,
+      password,
+      confirmPassword,
+      hasDisease,
+      diseaseReason,
+      phoneNumber,
+      email,
+      fatherStatus,
+      motherStatus,
+      bankCode,
+      accountNumber,
+      parentName,
+      parentKinaya,
+      parentPhoneNumber,
+      parentEmail,
+      relativeRelation,
+      session,
       id,
     } = obj;
+    const identityType = "";
     const orderedObj = {
       name,
-      nickname,
+      nickname: kinaya,
       gender,
-      sessions,
+      sessions: session,
       username,
-      date,
-      birthPlace,
+      date: dateOfBirth,
+      birthPlace: placeOfBirth,
       nationality,
       identityType,
       id,
@@ -64,6 +82,7 @@ const Students = () => {
     return orderedObj;
   };
   const students = useSelector((state) => state.students.value);
+  console.log("🚀 ~ file: Students.jsx:67 ~ Students ~ students:", students);
   const options = useSelector((state) => state.sessions.value);
 
   const optionsNames = options.map((option) => option.sessionName);
@@ -73,8 +92,13 @@ const Students = () => {
   );
   useEffect(() => {
     setStudentsData(orderedData);
+    console.log(
+      "🚀 ~ file: Students.jsx:95 ~ useEffect ~ StudentsData:",
+      studentsData
+    );
+
     setOptionsArray(optionsNames);
-  }, []);
+  }, [students, options]);
 
   const headers = [
     "الاسم",
@@ -164,22 +188,23 @@ const Students = () => {
     return true; // All values are found
   };
 
-  const filteredData = () => {
+  const filteredData = (data) => {
     if (sessionNames.length > 0) {
-      return studentsData?.filter((student) =>
+      return data?.filter((student) =>
         objectIncludes(student.sessions, sessionNames)
       );
     }
 
     if (searchTerm.length > 0) {
-      return studentsData?.filter(
+      return data?.filter(
         (student) =>
           student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          student.nickname.toLowerCase().includes(searchTerm.toLowerCase())
+          student?.nickname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          student?.kinaya?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    return studentsData;
+    return data;
   };
 
   return (
@@ -195,7 +220,7 @@ const Students = () => {
       <StudentsTable
         selectedStudent={selectedStudent}
         setSelectedStudent={setSelectedStudent}
-        studentsData={filteredData()}
+        studentsData={filteredData(studentsData)}
         headers={headers}
         selectAll={selectAll}
       />

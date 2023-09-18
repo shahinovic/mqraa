@@ -47,6 +47,8 @@ const FilterInput = ({ input, index }) => {
   const handleSelectClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const inputRequired = names.length === 0;
   return (
     <>
       <Col xs={12} md={cols} key={index}>
@@ -55,7 +57,7 @@ const FilterInput = ({ input, index }) => {
             <Form.Label>{formLabel}</Form.Label>
             <Form.Group controlId="sessionSearch">
               <Form.Control
-                required={true}
+                required={inputRequired}
                 type={type}
                 value={searchTerm}
                 onFocus={() => setIsDropdownOpen(true)}
