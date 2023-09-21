@@ -66,10 +66,6 @@ const StatisticsAchievement = () => {
     },
   ];
   // const mydata = performanceTable;
-  console.log(
-    "🚀 ~ file: StatisticsAchievement.jsx:63 ~ StatisticsAchievement ~ mydata:"
-    // mydata
-  );
 
   const data = {
     labels: ["عاصم بحري", "سيف الدين فيصل", "هارون العنابي", "جمال صحراوي"],

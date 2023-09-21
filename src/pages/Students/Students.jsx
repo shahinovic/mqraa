@@ -24,6 +24,7 @@ import { setFormStatus } from "../../services/reducers/showFormSlice";
 // import { getStudentsReducer } from "../../services/reducers/studentsSlice";
 
 const Students = () => {
+  const refresh = useSelector((state) => state.refresh);
   const [studentsData, setStudentsData] = useLocalStorage("studentsData", []);
   const [optionsArray, setOptionsArray] = useLocalStorage("optionsArray", []);
   const [sessionNames, setSessionNames] = useLocalStorage("sessionNames", []);
@@ -34,6 +35,7 @@ const Students = () => {
   );
   const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
   const dispatch = useDispatch();
+  const booleanValue = useSelector((state) => state.refresh);
 
   const rearrangeStudentProperties = (obj) => {
     const {
@@ -82,7 +84,7 @@ const Students = () => {
     return orderedObj;
   };
   const students = useSelector((state) => state.students.value);
-  console.log("🚀 ~ file: Students.jsx:67 ~ Students ~ students:", students);
+
   const options = useSelector((state) => state.sessions.value);
 
   const optionsNames = options.map((option) => option.sessionName);
@@ -92,13 +94,9 @@ const Students = () => {
   );
   useEffect(() => {
     setStudentsData(orderedData);
-    console.log(
-      "🚀 ~ file: Students.jsx:95 ~ useEffect ~ StudentsData:",
-      studentsData
-    );
 
     setOptionsArray(optionsNames);
-  }, [students, options]);
+  }, [booleanValue]);
 
   const headers = [
     "الاسم",
@@ -217,13 +215,15 @@ const Students = () => {
         name="بحث بإسم الطالب"
         placeholder="أدخل اسم الطالب"
       />
-      <StudentsTable
-        selectedStudent={selectedStudent}
-        setSelectedStudent={setSelectedStudent}
-        studentsData={filteredData(studentsData)}
-        headers={headers}
-        selectAll={selectAll}
-      />
+      {!refresh && (
+        <StudentsTable
+          selectedStudent={selectedStudent}
+          setSelectedStudent={setSelectedStudent}
+          studentsData={filteredData(studentsData)}
+          headers={headers}
+          selectAll={selectAll}
+        />
+      )}
     </div>
   );
 };

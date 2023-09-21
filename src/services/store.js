@@ -8,6 +8,7 @@ import teachersAttendanceReducer from "./reducers/teachersAttendanceSlice";
 import teachersReducer from "./reducers/teachersSlice";
 import parentsReducer from "./reducers/parentsSlice";
 import showFormReducer from "./reducers/showFormSlice";
+import refreshReducer from "./reducers/refreshSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     teachers: teachersReducer,
     parents: parentsReducer,
     showForm: showFormReducer,
+    refresh: refreshReducer,
   },
 });

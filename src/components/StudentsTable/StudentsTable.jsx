@@ -1,5 +1,8 @@
 import { Form, Table } from "react-bootstrap";
 import "./StudentsTable.css";
+import { toggle } from "../../services/reducers/refreshSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const StudentsTable = ({
   selectedStudent,
@@ -8,34 +11,18 @@ const StudentsTable = ({
   headers,
   selectAll,
 }) => {
+  const refresh = useSelector((state) => state.refresh);
   const renderStudents = () => {
     // const [studentChecked, setStudentChecked] = useState(true);
 
-    console.log(
-      "🚀 ~ file: StudentsTable.jsx:11 ~ studentsData:",
-      studentsData
-    );
     return studentsData?.map((student) => {
-      // console.log(
-      //   "🚀 ~ file: StudentsTable.jsx:18 ~ returnstudentsData?.map ~ student:",
-      //   selectedStudent
-      // );
-
       const keys = Object.keys(student);
       const tds = keys.map((ele, index) => {
-        console.log(
-          "student[ele]",
-          ele === "sessions" ? student[`${ele}`] : null
-        );
         if (index >= headers.length) return;
         if (typeof student[`${ele}`]?.$$typeof === "symbol")
           return <td key={student.id + student.username}>{student[ele]}</td>;
 
         if (Array.isArray(student[ele])) {
-          console.log(
-            "🚀 ~ file: StudentsTable.jsx:32 ~ tds ~ student[`${ele}`]:",
-            student[`${ele}`]
-          );
           // <td key={student.id + student.username}>
           //   {student[`${ele}`].map((ele) => (
           //     <span key={student.id + student.username} className="badge">
@@ -83,6 +70,8 @@ const StudentsTable = ({
     return headers.map((header) => <th>{header}</th>);
   };
 
+  const handleRefresh = () => {};
+
   return (
     <div className="students-table">
       <Table striped bordered hover size="md">
@@ -92,7 +81,9 @@ const StudentsTable = ({
             {renderHeaders()}
           </tr>
         </thead>
-        <tbody>{studentsData?.length !== 0 && renderStudents()}</tbody>
+        {!refresh && (
+          <tbody>{studentsData?.length !== 0 && renderStudents()}</tbody>
+        )}
       </Table>
       {studentsData?.length === 0 && (
         <div

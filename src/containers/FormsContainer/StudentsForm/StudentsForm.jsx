@@ -13,30 +13,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { ref as storageRef, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../../config/firebase";
-import { getStudents } from "../../../services/reducers/studentsSlice";
+import { toggle } from "../../../services/reducers/refreshSlice";
+import { setFormStatus } from "../../../services/reducers/showFormSlice";
+import { settings } from "firebase/analytics";
 
 const StudentsForm = () => {
-  const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useLocalStorage(
-    "sessionsOptionsSFArray",
-    []
-  );
-  const [SFSessionsName, setSFSessionsName] = useLocalStorage(
-    "SFSessionsName",
-    []
-  );
+  const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useState([]);
+  const [SFSessionsName, setSFSessionsName] = useState([]);
 
-  const [parentsOptionsSFArray, setParentsOptionsSFArray] = useLocalStorage(
-    "parentsOptionsSFArray",
-    []
-  );
-  const [SFParentsNames, setSFParentsNames] = useLocalStorage(
-    "SFParentsNames",
-    []
-  );
+  const [parentsOptionsSFArray, setParentsOptionsSFArray] = useState([]);
+  const [SFParentsNames, setSFParentsNames] = useState([]);
 
-  const [studentPic, setStudentPic] = useLocalStorage("studentPic", "");
+  const [studentPic, setStudentPic] = useState([]);
 
-  const [addParent, setAddParent] = useLocalStorage("addParent", false);
+  const [addParent, setAddParent] = useState([]);
 
   const formTitle =
     useSelector((state) => state.showForm.value.action) === "ADD"
@@ -112,28 +102,14 @@ const StudentsForm = () => {
     const session = SFSessionsName;
     const savedParentName = SFParentsNames;
 
-    console.log(
-      "🚀 ~ file: StudentsForm.jsx:170 ~ handleSubmit ~ `studentsImages/${foreignName}-${foreignKinaya}-${username}`:",
-      `studentsImages/${foreignName}_${foreignKinaya}_${username}`,
-      studentAvatar
-    );
-
     const imgRef = storageRef(
       storage,
       `studentsImages/${foreignName}_${foreignKinaya}_${username}.${
         studentAvatar?.type.split("/")[1]
       }`
     );
-    console.log(
-      "🚀 ~ file: StudentsForm.jsx:196 ~ handleSubmit ~ imgRef:",
-      imgRef
-    );
+
     try {
-      console.log(
-        "🚀 ~ file: StudentsForm.jsx:132 ~ uploadData ~ imgRef, studentAvatar:",
-        imgRef,
-        studentAvatar
-      );
       uploadBytes(imgRef, studentAvatar);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -220,8 +196,23 @@ const StudentsForm = () => {
 
     if (form.checkValidity() === true) {
       await uploadData(formData, SFSessionsName, SFParentsNames);
-      dispatch(getStudents());
+      dispatch(toggle());
+
+      setTimeout(() => {
+        dispatch(toggle());
+      }, 1500);
+      setTimeout(() => {
+        dispatch(toggle());
+      }, 1600);
+      setTimeout(() => {
+        dispatch(toggle());
+      }, 1700);
     }
+    dispatch(setFormStatus({ show: false }));
+  };
+
+  const handleCancel = () => {
+    dispatch(setFormStatus({ show: false }));
   };
 
   // filter Inputs
@@ -705,9 +696,18 @@ const StudentsForm = () => {
             </Col>
           </Row>
         </div>
-        <Button variant="success" type="submit" className="w-75 my-5 ">
-          حفظ
-        </Button>
+        <div className="actions d-flex gap-4">
+          <Button variant="success" type="submit" className="w-75 my-5 ">
+            حفظ
+          </Button>
+          <Button
+            onClick={handleCancel}
+            variant="danger"
+            className="w-75 my-5 "
+          >
+            إلغاء
+          </Button>
+        </div>
       </Form>
     </div>
   );

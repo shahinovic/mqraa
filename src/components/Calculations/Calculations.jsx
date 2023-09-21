@@ -5,7 +5,7 @@ import "./Calculations.css";
 const Calculations = ({ reportsData }) => {
   const firstColor = "#418a84";
   const secondColor = "#bf8b49";
-  console.log(reportsData);
+
   const incomes = reportsData
     .map((report) => {
       if (report.amount[0] === "+") {
