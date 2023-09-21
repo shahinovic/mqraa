@@ -21,6 +21,8 @@ import "./Students.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setFormStatus } from "../../services/reducers/showFormSlice";
+import { setSelectedUser } from "../../services/reducers/selectedUserSlice";
+
 // import { getStudentsReducer } from "../../services/reducers/studentsSlice";
 
 const Students = () => {
@@ -33,6 +35,7 @@ const Students = () => {
     "selectedStudent",
     []
   );
+
   const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
   const dispatch = useDispatch();
   const booleanValue = useSelector((state) => state.refresh);
@@ -111,7 +114,7 @@ const Students = () => {
   ];
 
   // actions
-
+  const selectedUser = useSelector((state) => state.selectedUser.value);
   const firstColActions = [
     {
       text: "اضافة",
@@ -127,19 +130,33 @@ const Students = () => {
         dispatch(
           setFormStatus({ show: true, path: "/student", action: "EDIT" })
         ),
-      disabled: false,
+      disabled:
+        !selectAll || selectedUser.length == 0 || selectedUser.length > 1,
     },
     {
       text: "حذف",
-      disabled: true,
+      disabled: selectedUser.length == 0,
     },
     {
       text: "تحديد الكل",
-      disabled: true,
+      onClick: () => {
+        setSelectAll([!selectAll[0]]);
+        setSelectedStudent(studentsData.map((student) => student.id));
+        dispatch(setSelectedUser(studentsData.map((student) => student.id)));
+        setTimeout(() => {
+          console.log(selectedStudent);
+        }, 300);
+      },
+      disabled: selectAll[0],
     },
     {
       text: "إلغاء",
-      disabled: true,
+      onClick: () => {
+        setSelectedStudent([]);
+        dispatch(setSelectedUser([]));
+        setSelectAll([false]);
+      },
+      disabled: selectedUser.length == 0,
     },
   ];
 

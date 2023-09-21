@@ -11,6 +11,7 @@ import { setTeachersAttendanceReducer } from "./services/reducers/teachersAttend
 import { setSessionsReducer } from "./services/reducers/sessionsSlice";
 import { useLocalStorage } from "./components";
 import { setParentsReducer } from "./services/reducers/parentsSlice";
+import Test from "./Test";
 
 const App = () => {
   const booleanValue = useSelector((state) => state.refresh);
@@ -283,6 +284,7 @@ const App = () => {
           )} */}
           <Container fluid>
             <FormsContainer />
+            <Test />
             <Row>
               <Col xs={9} md={11}>
                 <Navbar screenSize={screenSize} />

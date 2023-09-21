@@ -10,12 +10,19 @@ import {
 } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addDoc, collection } from "firebase/firestore";
-import { ref as storageRef, uploadBytes } from "firebase/storage";
+import { addDoc, collection, doc } from "firebase/firestore";
+import {
+  deleteObject,
+  getDownloadURL,
+  listAll,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
 import { db, storage } from "../../../config/firebase";
 import { toggle } from "../../../services/reducers/refreshSlice";
 import { setFormStatus } from "../../../services/reducers/showFormSlice";
-import { settings } from "firebase/analytics";
+import { v4 } from "uuid";
+import { usePrevious } from "../../../hooks";
 
 const StudentsForm = () => {
   const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useState([]);
@@ -28,10 +35,18 @@ const StudentsForm = () => {
 
   const [addParent, setAddParent] = useState([]);
 
-  const formTitle =
-    useSelector((state) => state.showForm.value.action) === "ADD"
-      ? "إضافة"
-      : "تعديل";
+  const [downloadURL, setDownloadURL] = useState(null);
+  const [images, setImages] = useState([]);
+  const [fbImagePath, setFbImagePath] = useState("");
+
+  useEffect(() => {
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:36 ~ StudentsForm ~ images:",
+      images
+    );
+  }, [images]);
+
+  const formStatus = useSelector((state) => state.showForm.value);
 
   // Define state variables for form validation
   const [validated, setValidated] = useState(false);
@@ -66,8 +81,94 @@ const StudentsForm = () => {
     relativeRelation: "",
     sessions: [],
     studentAvatar: null,
+    imageID: "",
   });
+  const prevFormData = usePrevious(formData);
+  console.log(
+    "🚀 ~ file: StudentsForm.jsx:85 ~ StudentsForm ~ prevFormData:",
+    prevFormData
+  );
   const dispatch = useDispatch();
+
+  const students = useSelector((state) => state.students.value);
+  const selectedStudent = useSelector((state) => state.selectedUser.value);
+  const listFilesInFolder = async (folderPath) => {
+    const storageImagesRef = storageRef(storage, folderPath); // Replace with your Firebase Storage reference
+    try {
+      const items = await listAll(storageImagesRef);
+
+      // Extract the names of the items (files and subfolders) within the folder
+      const itemNames = items.items.map((item) => {
+        console.log("🚀 ~ file: StudentsForm.jsx:94 ~ itemNames ~ item:", item);
+        return item.name;
+      });
+
+      return itemNames;
+    } catch (error) {
+      console.error("Error listing files in folder: ", error);
+      return [];
+    }
+  };
+
+  const folderPath = "studentsImages";
+  useEffect(() => {
+    listFilesInFolder(folderPath)
+      .then((fileNames) => {
+        setImages(fileNames);
+      })
+      .catch((error) => {
+        console.error("Error: Images88 ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (formStatus.action === "EDIT") {
+      setFormData(
+        students.find((student) => student.id === selectedStudent[0])
+      );
+      console.log(
+        "🚀 ~ file: StudentsForm.jsx:117 ~ useEffect ~ formData:",
+        formData
+      );
+      const { foreignName, foreignKinaya, username } = formData;
+      setTimeout(() => {
+        // `studentsImages/${foreignName}_${foreignKinaya}_${username}`
+        const imageName = images.find((ele) =>
+          ele.includes(
+            `${formData.foreignName}_${formData.foreignKinaya}_${formData.username}`
+          )
+        );
+        console.log(
+          "🚀 ~ file: StudentsForm.jsx:128 ~ setTimeout ~ images:",
+          images
+        );
+        console.log(
+          "🚀 ~ file: StudentsForm.jsx:127 ~ setTimeout ~ `${formData.foreignName}_${formData.foreignKinaya}_${formData.username}`:",
+          `${formData.foreignName}_${formData.foreignKinaya}_${formData.imageID}`
+        );
+
+        const imagePath = `studentsImages/${imageName}`;
+        setFbImagePath(imageName);
+        const imageRef = storageRef(storage, imagePath);
+
+        getDownloadURL(imageRef)
+          .then((downloadURL) => {
+            if (downloadURL) {
+              console.log("Download URL: ", downloadURL);
+              setDownloadURL(downloadURL);
+              // You can use the downloadURL to display the image in your application
+            } else {
+              console.error("Image not found.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error: ", error);
+          });
+      }, 3000);
+      // downloadURL
+    }
+  }, [images]);
+
   // Handle form input changes
 
   const uploadData = async (data, SFSessionsName, SFParentsNames) => {
@@ -104,7 +205,7 @@ const StudentsForm = () => {
 
     const imgRef = storageRef(
       storage,
-      `studentsImages/${foreignName}_${foreignKinaya}_${username}.${
+      `studentsImages/${foreignName}_${foreignKinaya}_${imageID}.${
         studentAvatar?.type.split("/")[1]
       }`
     );
@@ -150,6 +251,46 @@ const StudentsForm = () => {
     }
   };
 
+  const updateData = async (studentId, updatedData) => {
+    const studentDocRef = doc(db, "studentsTable", studentId);
+
+    try {
+      await updateDoc(studentDocRef, {
+        ...updatedData, // Include the updated data you want to set
+        updateDate: new Date(), // Update the updateDate field with the current date
+      });
+      console.log(`Student with ID ${studentId} updated successfully.`);
+    } catch (e) {
+      console.error(`Error updating student with ID ${studentId}: `, e);
+    }
+    updateImage(updatedData);
+  };
+
+  const updateImage = async (data) => {
+    const desertRef = storageRef(storage, fbImagePath);
+    deleteObject(desertRef)
+      .then(() => {
+        // image deleted successfully
+        console.log("image deleted successfully");
+      })
+      .catch((error) => {
+        console.error("Error deleting image: ", error);
+      });
+    const { foreignName, foreignKinaya, studentAvatar, imageID } = data;
+    const imgRef = storageRef(
+      storage,
+      `studentsImages/${foreignName}_${foreignKinaya}_${imageID}.${
+        studentAvatar?.type.split("/")[1]
+      }`
+    );
+
+    try {
+      uploadBytes(imgRef, studentAvatar);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   const handleInputChange = (event) => {
     if (event?.target?.type === "file") {
       const selectedFile = event.target.files[0];
@@ -180,6 +321,7 @@ const StudentsForm = () => {
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setFormData({ ...formData, imageID: v4() });
 
     const form = event.currentTarget;
 
@@ -195,7 +337,10 @@ const StudentsForm = () => {
     // Add custom validation logic here, if needed
 
     if (form.checkValidity() === true) {
-      await uploadData(formData, SFSessionsName, SFParentsNames);
+      formStatus.action === "ADD" &&
+        (await uploadData(formData, SFSessionsName, SFParentsNames));
+      formStatus.action === "EDIT" &&
+        (await updateData(selectedUser[0], formData));
       dispatch(toggle());
 
       setTimeout(() => {
@@ -510,10 +655,13 @@ const StudentsForm = () => {
     },
   ];
 
+  // handle edit form
+  const selectedUser = useSelector((state) => state.selectedUser.value);
+
   return (
     <div className="students-form  w-100 h-100 text-center">
       <Form onSubmit={handleSubmit}>
-        <h2>{formTitle}</h2>
+        <h2>{formStatus.action === "ADD" ? "إضافة" : "تعديل"}</h2>
         <div>
           <h3>معلومات الانتساب</h3>
           <StudentsFilter filterInputs={filterInputs} />
@@ -688,18 +836,38 @@ const StudentsForm = () => {
                 <SchoolLogo
                   edit={false}
                   name="studentAvatar"
-                  schoolLogo={formData.studentAvatar}
+                  schoolLogo={
+                    formStatus.action === "EDIT" &&
+                    prevFormData?.studentAvatar === formData.studentAvatar
+                      ? downloadURL
+                      : formData.studentAvatar
+                  }
                   studentPic={studentPic}
                   handleLogoChange={handleInputChange}
                 />
+                {/*
+                () => {
+                    if (formStatus.action === "EDIT") {
+                      console.log('shahin')
+                      return downloadURL + "shahin";
+                    }
+                  }
+                */}
               </div>
             </Col>
           </Row>
         </div>
         <div className="actions d-flex gap-4">
-          <Button variant="success" type="submit" className="w-75 my-5 ">
-            حفظ
-          </Button>
+          {formStatus.action === "ADD" && (
+            <Button variant="success" type="submit" className="w-75 my-5 ">
+              حفظ
+            </Button>
+          )}
+          {formStatus.action === "EDIT" && (
+            <Button variant="success" type="submit" className="w-75 my-5 ">
+              تعديل
+            </Button>
+          )}
           <Button
             onClick={handleCancel}
             variant="danger"

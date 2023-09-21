@@ -9,6 +9,7 @@ import teachersReducer from "./reducers/teachersSlice";
 import parentsReducer from "./reducers/parentsSlice";
 import showFormReducer from "./reducers/showFormSlice";
 import refreshReducer from "./reducers/refreshSlice";
+import selectedUserReducer from "./reducers/selectedUserSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     parents: parentsReducer,
     showForm: showFormReducer,
     refresh: refreshReducer,
+    selectedUser: selectedUserReducer,
   },
 });

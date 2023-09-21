@@ -3,6 +3,7 @@ import "./StudentsTable.css";
 import { toggle } from "../../services/reducers/refreshSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUser } from "../../services/reducers/selectedUserSlice";
 
 const StudentsTable = ({
   selectedStudent,
@@ -12,6 +13,8 @@ const StudentsTable = ({
   selectAll,
 }) => {
   const refresh = useSelector((state) => state.refresh);
+  const dispatch = useDispatch();
+
   const renderStudents = () => {
     // const [studentChecked, setStudentChecked] = useState(true);
 
@@ -53,9 +56,13 @@ const StudentsTable = ({
               className=""
               onClick={() => {
                 const toggle = student.id === selectedStudent[0];
-                toggle
-                  ? setSelectedStudent([])
-                  : setSelectedStudent([student.id]);
+                if (!toggle) {
+                  setSelectedStudent([student.id]);
+                  dispatch(setSelectedUser([student.id]));
+                } else {
+                  setSelectedStudent([]);
+                  dispatch(setSelectedUser([]));
+                }
               }}
               type="checkbox"
               id={`default-checkbox`}
