@@ -1,5 +1,5 @@
 // import { Dropdown } from "react-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   StudentsActions,
@@ -10,20 +10,10 @@ import {
 } from "../../components";
 
 import "./Students.css";
-// import { db } from "../../config/firebase";
-// import {
-//   getDocs,
-//   collection,
-//   addDoc,
-//   deleteDoc,
-//   doc,
-// } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setFormStatus } from "../../services/reducers/showFormSlice";
 import { setSelectedUser } from "../../services/reducers/selectedUserSlice";
-
-// import { getStudentsReducer } from "../../services/reducers/studentsSlice";
 
 const Students = () => {
   const refresh = useSelector((state) => state.refresh);
@@ -31,10 +21,7 @@ const Students = () => {
   const [optionsArray, setOptionsArray] = useLocalStorage("optionsArray", []);
   const [sessionNames, setSessionNames] = useLocalStorage("sessionNames", []);
   const [searchTerm, setSearchTerm] = useLocalStorage("searchTerm", "");
-  const [selectedStudent, setSelectedStudent] = useLocalStorage(
-    "selectedStudent",
-    []
-  );
+  const [selectedStudent, setSelectedStudent] = useState([]);
 
   const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
   const dispatch = useDispatch();
@@ -126,15 +113,23 @@ const Students = () => {
     },
     {
       text: "تعديل",
-      onClick: () =>
+      onClick: () => {
+        setSelectedStudent([]);
         dispatch(
           setFormStatus({ show: true, path: "/student", action: "EDIT" })
-        ),
+        );
+      },
       disabled:
         !selectAll || selectedUser.length == 0 || selectedUser.length > 1,
     },
     {
       text: "حذف",
+      onClick: async () => {
+        setSelectedStudent([]);
+        dispatch(
+          setFormStatus({ show: true, path: "/student", action: "DELETE" })
+        );
+      },
       disabled: selectedUser.length == 0,
     },
     {
@@ -160,12 +155,12 @@ const Students = () => {
     },
   ];
 
-  const secondColActions = ["طباعة", "إظهار", "Excel", "إظهار 10 اسطر"];
+  // const secondColActions = ["طباعة", "إظهار", "Excel", "إظهار 10 اسطر"];
 
   const show = {
-    state: "both",
+    state: "first",
     first: firstColActions,
-    second: secondColActions,
+    // second: secondColActions,
   };
 
   const filterInputs = [

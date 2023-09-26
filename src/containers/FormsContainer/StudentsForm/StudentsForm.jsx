@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./StudentsForm.css";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import {
   FormInput,
   FormSelect,
@@ -10,7 +10,13 @@ import {
 } from "../../../components";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addDoc, collection, doc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import {
   deleteObject,
   getDownloadURL,
@@ -23,6 +29,7 @@ import { toggle } from "../../../services/reducers/refreshSlice";
 import { setFormStatus } from "../../../services/reducers/showFormSlice";
 import { v4 } from "uuid";
 import { usePrevious } from "../../../hooks";
+import { setSelectedUser } from "../../../services/reducers/selectedUserSlice";
 
 const StudentsForm = () => {
   const [sessionsOptionsSFArray, setSessionsOptionsSFArray] = useState([]);
@@ -39,14 +46,13 @@ const StudentsForm = () => {
   const [images, setImages] = useState([]);
   const [fbImagePath, setFbImagePath] = useState("");
 
+  const formStatus = useSelector((state) => state.showForm.value);
   useEffect(() => {
     console.log(
-      "🚀 ~ file: StudentsForm.jsx:36 ~ StudentsForm ~ images:",
-      images
+      "🚀 ~ file: StudentsForm.jsx:45 ~ StudentsForm ~ formStatus:",
+      formStatus
     );
-  }, [images]);
-
-  const formStatus = useSelector((state) => state.showForm.value);
+  }, [formStatus]);
 
   // Define state variables for form validation
   const [validated, setValidated] = useState(false);
@@ -84,10 +90,7 @@ const StudentsForm = () => {
     imageID: "",
   });
   const prevFormData = usePrevious(formData);
-  console.log(
-    "🚀 ~ file: StudentsForm.jsx:85 ~ StudentsForm ~ prevFormData:",
-    prevFormData
-  );
+
   const dispatch = useDispatch();
 
   const students = useSelector((state) => state.students.value);
@@ -99,7 +102,6 @@ const StudentsForm = () => {
 
       // Extract the names of the items (files and subfolders) within the folder
       const itemNames = items.items.map((item) => {
-        console.log("🚀 ~ file: StudentsForm.jsx:94 ~ itemNames ~ item:", item);
         return item.name;
       });
 
@@ -127,24 +129,17 @@ const StudentsForm = () => {
         students.find((student) => student.id === selectedStudent[0])
       );
       console.log(
-        "🚀 ~ file: StudentsForm.jsx:117 ~ useEffect ~ formData:",
+        "🚀 ~ file: StudentsForm.jsx:124 ~ useEffect ~ students.find:",
         formData
       );
+
       const { foreignName, foreignKinaya, username } = formData;
       setTimeout(() => {
         // `studentsImages/${foreignName}_${foreignKinaya}_${username}`
         const imageName = images.find((ele) =>
           ele.includes(
-            `${formData.foreignName}_${formData.foreignKinaya}_${formData.username}`
+            `${formData.foreignName}_${formData.foreignKinaya}_${formData.imageID}`
           )
-        );
-        console.log(
-          "🚀 ~ file: StudentsForm.jsx:128 ~ setTimeout ~ images:",
-          images
-        );
-        console.log(
-          "🚀 ~ file: StudentsForm.jsx:127 ~ setTimeout ~ `${formData.foreignName}_${formData.foreignKinaya}_${formData.username}`:",
-          `${formData.foreignName}_${formData.foreignKinaya}_${formData.imageID}`
         );
 
         const imagePath = `studentsImages/${imageName}`;
@@ -172,6 +167,12 @@ const StudentsForm = () => {
   // Handle form input changes
 
   const uploadData = async (data, SFSessionsName, SFParentsNames) => {
+    // setFormData({
+    //   ...formData,
+    //   imageID: v4(),
+    // });
+
+    console.log("🚀 ~ file: StudentsForm.jsx:160 ~ uploadData ~ data:", data);
     const {
       name,
       kinaya,
@@ -199,7 +200,12 @@ const StudentsForm = () => {
       parentEmail,
       relativeRelation,
       studentAvatar,
+      imageID,
     } = data;
+    setFormData({
+      ...formData,
+      imageID: v4(),
+    });
     const session = SFSessionsName;
     const savedParentName = SFParentsNames;
 
@@ -244,6 +250,7 @@ const StudentsForm = () => {
         relativeRelation,
         session: session,
         savedParentName: savedParentName,
+        imageID,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -251,7 +258,11 @@ const StudentsForm = () => {
     }
   };
 
-  const updateData = async (studentId, updatedData) => {
+  const updateData = async (updatedData, studentId) => {
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:240 ~ updateData ~ updatedData:",
+      updatedData.imageID
+    );
     const studentDocRef = doc(db, "studentsTable", studentId);
 
     try {
@@ -263,6 +274,7 @@ const StudentsForm = () => {
     } catch (e) {
       console.error(`Error updating student with ID ${studentId}: `, e);
     }
+    dispatch(setSelectedUser([]));
     updateImage(updatedData);
   };
 
@@ -289,6 +301,22 @@ const StudentsForm = () => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+  };
+
+  const deleteData = async (studentId) => {
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:307 ~ deleteData ~ studentId:",
+      studentId
+    );
+
+    if (studentId.length === 1) {
+      await deleteDoc(doc(db, "studentsTable", studentId[0]));
+    } else if (studentId.length > 1) {
+      studentId.forEach(async (id) => {
+        await deleteDoc(doc(db, "studentsTable", id));
+      });
+    }
+    dispatch(setSelectedUser([]));
   };
 
   const handleInputChange = (event) => {
@@ -320,8 +348,18 @@ const StudentsForm = () => {
 
   // Handle form submission
   const handleSubmit = async (event) => {
+    console.log(
+      "🚀 ~ file: StudentsForm.jsx:307 ~ handleSubmit ~ event:",
+      event.target
+    );
+    // setFormData({ ...formData, imageID: v4() });
     event.preventDefault();
-    setFormData({ ...formData, imageID: v4() });
+    setTimeout(() => {
+      console.log(
+        "🚀 ~ file: StudentsForm.jsx:313 ~ handleSubmit ~ formData:",
+        formData
+      );
+    }, 1000);
 
     const form = event.currentTarget;
 
@@ -340,7 +378,8 @@ const StudentsForm = () => {
       formStatus.action === "ADD" &&
         (await uploadData(formData, SFSessionsName, SFParentsNames));
       formStatus.action === "EDIT" &&
-        (await updateData(selectedUser[0], formData));
+        (await updateData(formData, selectedUser[0]));
+      formStatus.action === "DELETE" && (await deleteData(selectedUser));
       dispatch(toggle());
 
       setTimeout(() => {
@@ -658,194 +697,214 @@ const StudentsForm = () => {
   // handle edit form
   const selectedUser = useSelector((state) => state.selectedUser.value);
 
-  return (
-    <div className="students-form  w-100 h-100 text-center">
-      <Form onSubmit={handleSubmit}>
-        <h2>{formStatus.action === "ADD" ? "إضافة" : "تعديل"}</h2>
-        <div>
-          <h3>معلومات الانتساب</h3>
-          <StudentsFilter filterInputs={filterInputs} />
-        </div>
-        {studentsFormData.map((ele, index) => {
-          return (
-            <div key={index}>
-              <h3>{ele.title}</h3>
-              <Row>
-                {ele.cols.map((col, index) => {
-                  if (col.type === "select") {
-                    return (
-                      <FormSelect
-                        handleInputChange={handleInputChange}
-                        col={col}
-                        formData={formData}
-                        index={index}
-                        key={index + col.pattern}
-                      />
-                    );
-                  } else {
-                    return (
-                      <FormInput
-                        handleInputChange={handleInputChange}
-                        formData={formData}
-                        col={col}
-                        index={index}
-                        key={index + col.pattern}
-                      />
-                    );
-                  }
-                })}
-              </Row>
-            </div>
-          );
-        })}
+  // handle edit form
 
-        <div>
-          <h3>
-            <span>بيانات اولياء الامور</span>{" "}
-            {addParent ? (
-              <Button
-                className="mx-3"
-                onClick={() => setAddParent(!addParent)}
-                variant="danger"
-              >
-                إلغاء
-              </Button>
-            ) : (
-              <Button
-                className="mx-4"
-                onClick={() => setAddParent(!addParent)}
-                variant="danger"
-              >
-                إضافة ولي امر
-              </Button>
-            )}
-          </h3>
-          <Row>
-            <Col>
-              {addParent ? (
+  const handleEditForm = async () => {
+    await updateData(formData, selectedUser[0]);
+  };
+  return (
+    <div className="students-form  w-100 h-100  text-center">
+      {formStatus.action === "DELETE" ? (
+        <Card>
+          <Card.Body>
+            <Card.Title>حذف مستخدم</Card.Title>
+            {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
+            <Card.Text>هل تريد حقا حذف هذا المستخدم ؟</Card.Text>
+            <Button onClick={handleSubmit} variant="danger">
+              حذف
+            </Button>
+            <Button onClick={handleCancel} variant="secondary">
+              الغاء
+            </Button>
+          </Card.Body>
+        </Card>
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          <h2>{formStatus.action === "ADD" ? "إضافة" : "تعديل"}</h2>
+          <div>
+            <h3>معلومات الانتساب</h3>
+            <StudentsFilter filterInputs={filterInputs} />
+          </div>
+          {studentsFormData.map((ele, index) => {
+            return (
+              <div key={index}>
+                <h3>{ele.title}</h3>
                 <Row>
-                  <FormInput
-                    handleInputChange={handleInputChange}
-                    formData={formData}
-                    col={{
-                      required: true,
-                      md: 12,
-                      label: "الاسم",
-                      type: "text",
-                      name: "parentName",
-                      placeholder: "ادخل اسم الولي",
-                      value: formData.parentName,
-                      onChange: handleInputChange,
-                      pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
-                      feedback: "الرجاء ادخال حروف عربية فقط.",
-                    }}
-                    index={32}
-                  />
-                  <FormInput
-                    handleInputChange={handleInputChange}
-                    formData={formData}
-                    col={{
-                      required: true,
-                      md: 6,
-                      label: "الكنية",
-                      type: "text",
-                      name: "parentKinaya",
-                      placeholder: "ادخل كنية الولي",
-                      value: formData.parentKinaya,
-                      onChange: handleInputChange,
-                      pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
-                      feedback: "الرجاء ادخال حروف عربية فقط.",
-                    }}
-                    index={32}
-                  />
-                  <FormInput
-                    handleInputChange={handleInputChange}
-                    formData={formData}
-                    col={{
-                      required: true,
-                      md: 6,
-                      label: "رقم الهاتف (سيعتبر اسم المستخدم)",
-                      type: "tel",
-                      name: "parentPhoneNumber",
-                      placeholder: "ادخل رقم هاتف الولي",
-                      value: formData.parentPhoneNumber,
-                      onChange: handleInputChange,
-                      pattern: "^\\+?\\d{7,15}$",
-                      feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
-                    }}
-                    index={32}
-                  />
-                  <FormInput
-                    handleInputChange={handleInputChange}
-                    formData={formData}
-                    col={{
-                      required: true,
-                      md: 6,
-                      label: "البريد الإلكتروني :",
-                      type: "email",
-                      name: "parentEmail",
-                      placeholder: "ادخل البريد الإلكتروني للولي",
-                      value: formData.parentEmail,
-                      onChange: handleInputChange,
-                      pattern:
-                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/u,
-                      feedback: "الرجاء ادخال عنوان بريد إلكتروني صحيح",
-                    }}
-                    index={32}
-                  />
-                  <FormSelect
-                    handleInputChange={handleInputChange}
-                    col={{
-                      required: true,
-                      md: 6,
-                      label: "صلة القرابة",
-                      type: "select",
-                      name: "relativeRelation",
-                      value: formData.relativeRelation,
-                      onChange: handleInputChange,
-                      options: [
-                        {
-                          label: "تحديد",
-                          value: "تحديد",
-                        },
-                        {
-                          label: "اب",
-                          value: "اب",
-                        },
-                        {
-                          label: "ام",
-                          value: "ام",
-                        },
-                      ],
-                    }}
-                    formData={formData}
-                    index={1}
-                  />
+                  {ele.cols.map((col, index) => {
+                    if (col.type === "select") {
+                      return (
+                        <FormSelect
+                          handleInputChange={handleInputChange}
+                          col={col}
+                          formData={formData}
+                          index={index}
+                          key={index + col.pattern}
+                        />
+                      );
+                    } else {
+                      return (
+                        <FormInput
+                          handleInputChange={handleInputChange}
+                          formData={formData}
+                          col={col}
+                          index={index}
+                          key={index + col.pattern}
+                        />
+                      );
+                    }
+                  })}
                 </Row>
+              </div>
+            );
+          })}
+
+          <div>
+            <h3>
+              <span>بيانات اولياء الامور</span>{" "}
+              {addParent ? (
+                <Button
+                  className="mx-3"
+                  onClick={() => setAddParent(!addParent)}
+                  variant="danger"
+                >
+                  إلغاء
+                </Button>
               ) : (
-                <StudentsFilter filterInputs={parentArray} />
+                <Button
+                  className="mx-4"
+                  onClick={() => setAddParent(!addParent)}
+                  variant="danger"
+                >
+                  إضافة ولي امر
+                </Button>
               )}
-            </Col>
-          </Row>
-        </div>
-        <div>
-          <h3>صورة الطالب :</h3>
-          <Row>
-            <Col className="text-center">
-              <div className="img-container edit">
-                <SchoolLogo
-                  edit={false}
-                  name="studentAvatar"
-                  schoolLogo={
-                    formStatus.action === "EDIT" &&
-                    prevFormData?.studentAvatar === formData.studentAvatar
-                      ? downloadURL
-                      : formData.studentAvatar
-                  }
-                  studentPic={studentPic}
-                  handleLogoChange={handleInputChange}
-                />
-                {/*
+            </h3>
+            <Row>
+              <Col>
+                {addParent ? (
+                  <Row>
+                    <FormInput
+                      handleInputChange={handleInputChange}
+                      formData={formData}
+                      col={{
+                        required: true,
+                        md: 12,
+                        label: "الاسم",
+                        type: "text",
+                        name: "parentName",
+                        placeholder: "ادخل اسم الولي",
+                        value: formData.parentName,
+                        onChange: handleInputChange,
+                        pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+                        feedback: "الرجاء ادخال حروف عربية فقط.",
+                      }}
+                      index={32}
+                    />
+                    <FormInput
+                      handleInputChange={handleInputChange}
+                      formData={formData}
+                      col={{
+                        required: true,
+                        md: 6,
+                        label: "الكنية",
+                        type: "text",
+                        name: "parentKinaya",
+                        placeholder: "ادخل كنية الولي",
+                        value: formData.parentKinaya,
+                        onChange: handleInputChange,
+                        pattern: "^[\u0621-\u064A\u0660-\u0669]+$",
+                        feedback: "الرجاء ادخال حروف عربية فقط.",
+                      }}
+                      index={32}
+                    />
+                    <FormInput
+                      handleInputChange={handleInputChange}
+                      formData={formData}
+                      col={{
+                        required: true,
+                        md: 6,
+                        label: "رقم الهاتف (سيعتبر اسم المستخدم)",
+                        type: "tel",
+                        name: "parentPhoneNumber",
+                        placeholder: "ادخل رقم هاتف الولي",
+                        value: formData.parentPhoneNumber,
+                        onChange: handleInputChange,
+                        pattern: "^\\+?\\d{7,15}$",
+                        feedback: "الرجاء ادخال رقم هاتف صحيح مسبوق بعلامة +",
+                      }}
+                      index={32}
+                    />
+                    <FormInput
+                      handleInputChange={handleInputChange}
+                      formData={formData}
+                      col={{
+                        required: true,
+                        md: 6,
+                        label: "البريد الإلكتروني :",
+                        type: "email",
+                        name: "parentEmail",
+                        placeholder: "ادخل البريد الإلكتروني للولي",
+                        value: formData.parentEmail,
+                        onChange: handleInputChange,
+                        pattern:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/u,
+                        feedback: "الرجاء ادخال عنوان بريد إلكتروني صحيح",
+                      }}
+                      index={32}
+                    />
+                    <FormSelect
+                      handleInputChange={handleInputChange}
+                      col={{
+                        required: true,
+                        md: 6,
+                        label: "صلة القرابة",
+                        type: "select",
+                        name: "relativeRelation",
+                        value: formData.relativeRelation,
+                        onChange: handleInputChange,
+                        options: [
+                          {
+                            label: "تحديد",
+                            value: "تحديد",
+                          },
+                          {
+                            label: "اب",
+                            value: "اب",
+                          },
+                          {
+                            label: "ام",
+                            value: "ام",
+                          },
+                        ],
+                      }}
+                      formData={formData}
+                      index={1}
+                    />
+                  </Row>
+                ) : (
+                  <StudentsFilter filterInputs={parentArray} />
+                )}
+              </Col>
+            </Row>
+          </div>
+          <div>
+            <h3>صورة الطالب :</h3>
+            <Row>
+              <Col className="text-center">
+                <div className="img-container edit">
+                  <SchoolLogo
+                    edit={false}
+                    name="studentAvatar"
+                    schoolLogo={
+                      formStatus.action === "EDIT" &&
+                      prevFormData?.studentAvatar === formData.studentAvatar
+                        ? downloadURL
+                        : formData.studentAvatar
+                    }
+                    studentPic={studentPic}
+                    handleLogoChange={handleInputChange}
+                  />
+                  {/*
                 () => {
                     if (formStatus.action === "EDIT") {
                       console.log('shahin')
@@ -853,30 +912,36 @@ const StudentsForm = () => {
                     }
                   }
                 */}
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <div className="actions d-flex gap-4">
-          {formStatus.action === "ADD" && (
-            <Button variant="success" type="submit" className="w-75 my-5 ">
-              حفظ
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <div className="actions d-flex gap-4">
+            {formStatus.action === "ADD" && (
+              <Button variant="success" type="submit" className="w-75 my-5 ">
+                حفظ
+              </Button>
+            )}
+            {formStatus.action === "EDIT" && (
+              <Button
+                variant="success"
+                // onClick={handleEditForm}
+                type="submit"
+                className="w-75 my-5 "
+              >
+                تعديل
+              </Button>
+            )}
+            <Button
+              onClick={handleCancel}
+              variant="danger"
+              className="w-75 my-5 "
+            >
+              إلغاء
             </Button>
-          )}
-          {formStatus.action === "EDIT" && (
-            <Button variant="success" type="submit" className="w-75 my-5 ">
-              تعديل
-            </Button>
-          )}
-          <Button
-            onClick={handleCancel}
-            variant="danger"
-            className="w-75 my-5 "
-          >
-            إلغاء
-          </Button>
-        </div>
-      </Form>
+          </div>
+        </Form>
+      )}
     </div>
   );
 };
