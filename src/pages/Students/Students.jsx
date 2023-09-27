@@ -26,6 +26,7 @@ const Students = () => {
   const [selectAll, setSelectAll] = useLocalStorage("selectAll", [false]);
   const dispatch = useDispatch();
   const booleanValue = useSelector((state) => state.refresh);
+  const selectedUser = useSelector((state) => state.selectedUser.value);
 
   const rearrangeStudentProperties = (obj) => {
     const {
@@ -101,7 +102,7 @@ const Students = () => {
   ];
 
   // actions
-  const selectedUser = useSelector((state) => state.selectedUser.value);
+
   const firstColActions = [
     {
       text: "اضافة",

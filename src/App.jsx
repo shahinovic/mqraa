@@ -12,6 +12,7 @@ import { setSessionsReducer } from "./services/reducers/sessionsSlice";
 import { useLocalStorage } from "./components";
 import { setParentsReducer } from "./services/reducers/parentsSlice";
 import Test from "./Test";
+import { setTeachers as setTeachersReducer } from "./services/reducers/teachersSlice";
 
 const App = () => {
   const booleanValue = useSelector((state) => state.refresh);
@@ -156,7 +157,7 @@ const App = () => {
     {
       collectionName: "teachersTable",
       setDataFunction: setTeachers,
-      setReducerFunction: setTeachersAttendanceReducer,
+      setReducerFunction: setTeachersReducer,
       localStorageData: teachers,
     },
     {

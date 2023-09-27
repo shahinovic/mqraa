@@ -12,6 +12,7 @@ const StudentsTable = ({
   headers,
   selectAll,
 }) => {
+  console.log("🚀 ~ file: StudentsTable.jsx:15 ~ studentsData:", studentsData);
   const refresh = useSelector((state) => state.refresh);
   const dispatch = useDispatch();
 

@@ -5,3 +5,4 @@ export { default as Location } from "./Location/Location.jsx";
 export { default as AttendanceRenderLinks } from "./AttendanceRenderLinks/AttendanceRenderLinks.jsx";
 export { default as FormsContainer } from "./FormsContainer/FormsContainer.jsx";
 export { default as StudentsForm } from "./FormsContainer/StudentsForm/StudentsForm.jsx";
+export { default as ParentsForm } from "./FormsContainer/ParentsForm/ParentsForm.jsx";
