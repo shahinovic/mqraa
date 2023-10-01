@@ -1,6 +1,6 @@
 import React from "react";
 import "./FormsRouter.css";
-import { ParentsForm, StudentsForm } from "../../containers";
+import { ParentsForm, SessionsForm, StudentsForm } from "../../containers";
 import { useSelector } from "react-redux";
 
 const FormsRouter = () => {
@@ -9,6 +9,7 @@ const FormsRouter = () => {
   const router = {
     "/student": <StudentsForm />,
     "/parent": <ParentsForm />,
+    "/session": <SessionsForm />,
   };
   return (
     <div className="forms-router py-3 px-2 rounded-3 bg-light" dir="rtl">

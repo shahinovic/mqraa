@@ -62,3 +62,74 @@
 .change-logo input[type="file"] {
   display: none;
 }
+
+.sesstion-dates {
+  display: flex;
+  flex-direction: column;
+}
+.sesstion-dates > * > * > *:not(.svg) {
+  border: 1px solid #69e4e0 !important;
+  display: grid;
+  place-items: center;
+}
+
+.sesstion-dates .headers .header {
+  padding: 5px 0;
+  background-color: #d2f4f3;
+  color: #003c47 !important;
+}
+.sesstion-dates .body .col-4 .edit-input {
+  visibility: hidden;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 0.3s ease;
+  padding: 5px;
+  cursor: pointer;
+  background-color: rgb(219, 219, 219);
+  color: #525151;
+}
+.sesstion-dates .body .col-4:hover .edit-input {
+  visibility: visible;
+}
+
+.sesstion-dates .body .col-4 .edit-input.active {
+  background-color: #b2f1ef !important;
+  color: rgb(13, 141, 13) !important;
+}
+
+.add-remove {
+  width: 70px !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-remove > * {
+  width: 25px;
+  height: 25px;
+
+  border-radius: 5px;
+}
+
+.add-remove .add {
+  background-color: #3ebbb1;
+  color: #ffffff9c;
+  border: 1px solid #ffffff8f !important;
+  transition: 0.3s ease;
+}
+.add-remove .add:hover {
+  background-color: #2fd4c6;
+  color: #ffffff;
+  border: 1px solid #ffffff !important;
+}
+.add-remove .remove {
+  color: #dc354694;
+  border: 1px solid #dc354694 !important;
+  transition: 0.3s ease;
+}
+
+.add-remove .remove:hover {
+  color: #dc3546;
+  border: 1px solid #dc3546 !important;
+}

@@ -13,6 +13,7 @@ import { useLocalStorage } from "./components";
 import { setParentsReducer } from "./services/reducers/parentsSlice";
 import Test from "./Test";
 import { setTeachers as setTeachersReducer } from "./services/reducers/teachersSlice";
+import { toggle } from "./services/reducers/refreshSlice";
 
 const App = () => {
   const booleanValue = useSelector((state) => state.refresh);
@@ -241,6 +242,18 @@ const App = () => {
       clearTimeout(debounceTimeout);
     };
   }, [booleanValue]);
+
+  useEffect(() => {
+    const refreshEveryFiveMinutes = () => {
+      toggle();
+    };
+
+    const intervalId = setInterval(refreshEveryFiveMinutes, 300000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <div className="App">

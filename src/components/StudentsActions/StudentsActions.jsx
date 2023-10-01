@@ -16,7 +16,7 @@ const StudentsActions = ({ show }) => {
 
   const renderSecondColActions = () => {
     return second.map((action, index) => (
-      <button key={action + index} className="btn  ms-2">
+      <button key={action + index} disabled className="btn  ms-2">
         {action}
       </button>
     ));

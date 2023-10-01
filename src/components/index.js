@@ -23,3 +23,5 @@ export { default as FormsRouter } from "./FormsRouter/FormsRouter";
 export { default as ActionButton } from "./ActionButton/ActionButton";
 export { default as FormInput } from "./FormInput/FormInput";
 export { default as FormSelect } from "./FormSelect/FormSelect";
+export { default as SessionDates } from "./SessionDates/SessionDates";
+export { default as AddDayForSession } from "./AddDayForSession/AddDayForSession";

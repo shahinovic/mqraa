@@ -6,3 +6,4 @@ export { default as AttendanceRenderLinks } from "./AttendanceRenderLinks/Attend
 export { default as FormsContainer } from "./FormsContainer/FormsContainer.jsx";
 export { default as StudentsForm } from "./FormsContainer/StudentsForm/StudentsForm.jsx";
 export { default as ParentsForm } from "./FormsContainer/ParentsForm/ParentsForm.jsx";
+export { default as SessionsForm } from "./FormsContainer/SessionsForm/SessionsForm.jsx";

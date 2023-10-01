@@ -1,7 +1,7 @@
 import { Form, Table } from "react-bootstrap";
 import "./StudentsTable.css";
 import { toggle } from "../../services/reducers/refreshSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedUser } from "../../services/reducers/selectedUserSlice";
 
@@ -51,9 +51,7 @@ const StudentsTable = ({
         <tr key={student.name + student.nickname}>
           <td className="text-center">
             <Form.Check
-              checked={
-                (true && student.id === selectedStudent[0]) || selectAll[0]
-              }
+              checked={student.id === selectedStudent[0] || selectAll[0]}
               className=""
               onClick={() => {
                 const toggle = student.id === selectedStudent[0];
