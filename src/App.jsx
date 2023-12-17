@@ -75,13 +75,13 @@ const App = () => {
 
   const usersSub = ["google-oauth2|105338283554296505223"];
 
-  useEffect(() => {
-    isAuthenticated &&
-      !usersSub.includes(user.sub) &&
-      logout({
-        returnTo: window.location.origin,
-      });
-  });
+  // useEffect(() => {
+  //   isAuthenticated &&
+  //     !usersSub.includes(user.sub) &&
+  //     logout({
+  //       returnTo: window.location.origin,
+  //     });
+  // });
 
   // app data
   const dispatch = useDispatch();
@@ -261,9 +261,9 @@ const App = () => {
       {error && <p>{error.message}</p>}
       {!isLoading && !error && (
         <>
-          {/* {!isAuthenticated && <LogIn />} */}
+          {!isAuthenticated && <LogIn />}
 
-          {/* {isAuthenticated && usersSub.includes(user.sub) && (
+          {isAuthenticated && usersSub.includes(user.sub) && (
             <>
               {!user?.email_verified && (
                 <h1> يرجي التحقق من البريد الإلكتروني</h1>
@@ -295,10 +295,9 @@ const App = () => {
                 </Container>
               )}
             </>
-          )} */}
+          )}
           <Container fluid>
             <FormsContainer />
-            <Test />
             <Row>
               <Col xs={9} md={11}>
                 <Navbar screenSize={screenSize} />
