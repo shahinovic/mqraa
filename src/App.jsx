@@ -261,7 +261,7 @@ const App = () => {
       {error && <p>{error.message}</p>}
       {!isLoading && !error && (
         <>
-          {!isAuthenticated && <LogIn />}
+          {/* {!isAuthenticated && <LogIn />} */}
 
           {isAuthenticated && usersSub.includes(user.sub) && (
             <>
