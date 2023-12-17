@@ -62,7 +62,7 @@ const Sessions = () => {
 
   const optionsNames = options.map((option) => option.sessionName);
 
-  const genderNames = ["ذكور", "إناث"];
+  const genderNames = ["ذكور  ", "إناث"];
 
   const orderedData = sessions.map((student) =>
     rearrangeStudentProperties(student)
